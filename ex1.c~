@@ -1,0 +1,55 @@
+/***********************************************************/
+/* Gabriel Hidasy Rezende, RA116928 */
+#include <stdio.h>
+#include <stdlib.h>
+
+void err(char *msg)
+{
+  fprintf(stderr,"%s\n",msg);
+  exit(0);
+}
+
+/* Exercicio 1a, um exemplo de codigo para um servidor TCP */
+
+void TCPserverAccepter()
+{
+}
+void TCPserverListener()
+{
+  int socket, client, port = 12345;
+  char buffer[1024];
+  struct sockaddr_in serv_addr, cli_addr;
+  socket(AF_INET, SOCK_STREAM,0);
+  if(sockfd < 0) {
+    err("Erro abrindo o socket TCP de servidor");
+  }
+  //Ler sobre os campos dessa estrutura
+  serv_addr.sin_family = AF_INET;
+  serv_addr.sin_addr.s_addr = INADDR_ANY;
+  serv_addr.sin_port = htons(port);
+  
+  int len = sizeof(serv_addr);
+
+  if(bind(socket, (struct sockaddr *) &serv_addr, len) < 0) {
+    err("Erro no binding do servidor TCP");
+  }
+  listen(socket,5);
+
+  int pid;
+  for (;;) {
+    client = accept(socket, (struct sockaddr *) &cli_addr, &len);
+    pid = fork();
+    if (pid < 0) {
+      close(client);
+      err("Erro no fork()");
+      continue;
+    }
+    if (pid == 0) {
+      /*Trata o cliente*/
+      send(client,"200 OK\n, HI\n",20,0);
+    }
+    /*Loga o pid do filho pra matar o servidor de forma limpa com um C-c*/
+  }
+  close(socket);
+  return 0;
+}  

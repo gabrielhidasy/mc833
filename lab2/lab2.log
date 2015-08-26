@@ -1,0 +1,947 @@
+This is pdfTeX, Version 3.14159265-2.6-1.40.15 (TeX Live 2014/Arch Linux) (preloaded format=pdflatex 2015.5.31)  25 AUG 2015 13:35
+entering extended mode
+ restricted \write18 enabled.
+ %&-line parsing enabled.
+**lab2.tex
+(./lab2.tex
+LaTeX2e <2014/05/01>
+Babel <3.9l> and hyphenation patterns for 79 languages loaded.
+(/usr/share/texmf-dist/tex/latex/base/article.cls
+Document Class: article 2014/09/29 v1.4h Standard LaTeX document class
+(/usr/share/texmf-dist/tex/latex/base/size10.clo
+File: size10.clo 2014/09/29 v1.4h Standard LaTeX file (size option)
+)
+\c@part=\count79
+\c@section=\count80
+\c@subsection=\count81
+\c@subsubsection=\count82
+\c@paragraph=\count83
+\c@subparagraph=\count84
+\c@figure=\count85
+\c@table=\count86
+\abovecaptionskip=\skip41
+\belowcaptionskip=\skip42
+\bibindent=\dimen102
+)
+(/usr/share/texmf-dist/tex/latex/base/inputenc.sty
+Package: inputenc 2014/04/30 v1.2b Input encoding file
+\inpenc@prehook=\toks14
+\inpenc@posthook=\toks15
+
+(/usr/share/texmf-dist/tex/latex/ucs/utf8x.def
+File: utf8x.def 2004/10/17 UCS: Input encoding UTF-8
+))
+(/usr/share/texmf-dist/tex/latex/ucs/ucs.sty
+Package: ucs 2013/05/11 v2.2 UCS: Unicode input support
+
+(/usr/share/texmf-dist/tex/latex/ucs/data/uni-global.def
+File: uni-global.def 2013/05/13 UCS: Unicode global data
+)
+\uc@secondtry=\count87
+\uc@combtoks=\toks16
+\uc@combtoksb=\toks17
+\uc@temptokena=\toks18
+)
+(/usr/share/texmf-dist/tex/latex/amsmath/amsmath.sty
+Package: amsmath 2013/01/14 v2.14 AMS math features
+\@mathmargin=\skip43
+
+For additional information on amsmath, use the `?' option.
+(/usr/share/texmf-dist/tex/latex/amsmath/amstext.sty
+Package: amstext 2000/06/29 v2.01
+
+(/usr/share/texmf-dist/tex/latex/amsmath/amsgen.sty
+File: amsgen.sty 1999/11/30 v2.0
+\@emptytoks=\toks19
+\ex@=\dimen103
+))
+(/usr/share/texmf-dist/tex/latex/amsmath/amsbsy.sty
+Package: amsbsy 1999/11/29 v1.2d
+\pmbraise@=\dimen104
+)
+(/usr/share/texmf-dist/tex/latex/amsmath/amsopn.sty
+Package: amsopn 1999/12/14 v2.01 operator names
+)
+\inf@bad=\count88
+LaTeX Info: Redefining \frac on input line 210.
+\uproot@=\count89
+\leftroot@=\count90
+LaTeX Info: Redefining \overline on input line 306.
+\classnum@=\count91
+\DOTSCASE@=\count92
+LaTeX Info: Redefining \ldots on input line 378.
+LaTeX Info: Redefining \dots on input line 381.
+LaTeX Info: Redefining \cdots on input line 466.
+\Mathstrutbox@=\box26
+\strutbox@=\box27
+\big@size=\dimen105
+LaTeX Font Info:    Redeclaring font encoding OML on input line 566.
+LaTeX Font Info:    Redeclaring font encoding OMS on input line 567.
+\macc@depth=\count93
+\c@MaxMatrixCols=\count94
+\dotsspace@=\muskip10
+\c@parentequation=\count95
+\dspbrk@lvl=\count96
+\tag@help=\toks20
+\row@=\count97
+\column@=\count98
+\maxfields@=\count99
+\andhelp@=\toks21
+\eqnshift@=\dimen106
+\alignsep@=\dimen107
+\tagshift@=\dimen108
+\tagwidth@=\dimen109
+\totwidth@=\dimen110
+\lineht@=\dimen111
+\@envbody=\toks22
+\multlinegap=\skip44
+\multlinetaggap=\skip45
+\mathdisplay@stack=\toks23
+LaTeX Info: Redefining \[ on input line 2665.
+LaTeX Info: Redefining \] on input line 2666.
+)
+(/usr/share/texmf-dist/tex/latex/algorithms/algorithm.sty
+Package: algorithm 2009/08/24 v0.1 Document Style `algorithm' - floating enviro
+nment
+
+(/usr/share/texmf-dist/tex/latex/float/float.sty
+Package: float 2001/11/08 v1.3d Float enhancements (AL)
+\c@float@type=\count100
+\float@exts=\toks24
+\float@box=\box28
+\@float@everytoks=\toks25
+\@floatcapt=\box29
+)
+(/usr/share/texmf-dist/tex/latex/base/ifthen.sty
+Package: ifthen 2014/09/29 v1.1c Standard LaTeX ifthen package (DPC)
+)
+\@float@every@algorithm=\toks26
+\c@algorithm=\count101
+)
+(/usr/share/texmf-dist/tex/latex/algorithmicx/algorithmicx.sty
+Package: algorithmicx 2005/04/27 v1.2 Algorithmicx
+
+Document Style algorithmicx 1.2 - a greatly improved `algorithmic' style
+\c@ALG@line=\count102
+\c@ALG@rem=\count103
+\c@ALG@nested=\count104
+\ALG@tlm=\skip46
+\ALG@thistlm=\skip47
+\c@ALG@Lnr=\count105
+\c@ALG@blocknr=\count106
+\c@ALG@storecount=\count107
+\c@ALG@tmpcounter=\count108
+\ALG@tmplength=\skip48
+) (/usr/share/texmf-dist/tex/latex/algorithmicx/algpseudocode.sty
+Package: algpseudocode 
+
+Document Style - pseudocode environments for use with the `algorithmicx' style
+) (/usr/share/texmf-dist/tex/latex/mathtools/mathtools.sty
+Package: mathtools 2014/07/16 v1.15 mathematical typesetting tools
+
+(/usr/share/texmf-dist/tex/latex/graphics/keyval.sty
+Package: keyval 2014/10/28 v1.15 key=value parser (DPC)
+\KV@toks@=\toks27
+)
+(/usr/share/texmf-dist/tex/latex/tools/calc.sty
+Package: calc 2014/10/28 v4.3 Infix arithmetic (KKT,FJ)
+\calc@Acount=\count109
+\calc@Bcount=\count110
+\calc@Adimen=\dimen112
+\calc@Bdimen=\dimen113
+\calc@Askip=\skip49
+\calc@Bskip=\skip50
+LaTeX Info: Redefining \setlength on input line 75.
+LaTeX Info: Redefining \addtolength on input line 76.
+\calc@Ccount=\count111
+\calc@Cskip=\skip51
+)
+(/usr/share/texmf-dist/tex/latex/mathtools/mhsetup.sty
+Package: mhsetup 2010/01/21 v1.2a programming setup (MH)
+)
+LaTeX Info: Thecontrolsequence`\['isalreadyrobust on input line 129.
+LaTeX Info: Thecontrolsequence`\]'isalreadyrobust on input line 129.
+\g_MT_multlinerow_int=\count112
+\l_MT_multwidth_dim=\dimen114
+\origjot=\skip52
+\l_MT_shortvdotswithinadjustabove_dim=\dimen115
+\l_MT_shortvdotswithinadjustbelow_dim=\dimen116
+\l_MT_above_intertext_sep=\dimen117
+\l_MT_below_intertext_sep=\dimen118
+\l_MT_above_shortintertext_sep=\dimen119
+\l_MT_below_shortintertext_sep=\dimen120
+) (./lab2.aux)
+\openout1 = `lab2.aux'.
+
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 14.
+LaTeX Font Info:    ... okay on input line 14.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 14.
+LaTeX Font Info:    ... okay on input line 14.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 14.
+LaTeX Font Info:    ... okay on input line 14.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 14.
+LaTeX Font Info:    ... okay on input line 14.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 14.
+LaTeX Font Info:    ... okay on input line 14.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 14.
+LaTeX Font Info:    ... okay on input line 14.
+
+(/usr/share/texmf-dist/tex/latex/ucs/ucsencs.def
+File: ucsencs.def 2011/01/21 Fixes to fontencodings LGR, T3
+)
+(/usr/share/texmf-dist/tex/latex/graphics/graphicx.sty
+Package: graphicx 2014/10/28 v1.0g Enhanced LaTeX Graphics (DPC,SPQR)
+
+(/usr/share/texmf-dist/tex/latex/graphics/graphics.sty
+Package: graphics 2014/10/28 v1.0p Standard LaTeX Graphics (DPC,SPQR)
+
+(/usr/share/texmf-dist/tex/latex/graphics/trig.sty
+Package: trig 1999/03/16 v1.09 sin cos tan (DPC)
+)
+(/usr/share/texmf-dist/tex/latex/latexconfig/graphics.cfg
+File: graphics.cfg 2010/04/23 v1.9 graphics configuration of TeX Live
+)
+Package graphics Info: Driver file: pdftex.def on input line 91.
+
+(/usr/share/texmf-dist/tex/latex/pdftex-def/pdftex.def
+File: pdftex.def 2011/05/27 v0.06d Graphics/color for pdfTeX
+
+(/usr/share/texmf-dist/tex/generic/oberdiek/infwarerr.sty
+Package: infwarerr 2010/04/08 v1.3 Providing info/warning/error messages (HO)
+)
+(/usr/share/texmf-dist/tex/generic/oberdiek/ltxcmds.sty
+Package: ltxcmds 2011/11/09 v1.22 LaTeX kernel commands for general use (HO)
+)
+\Gread@gobject=\count113
+
+(/usr/share/texmf-dist/tex/context/base/supp-pdf.mkii
+[Loading MPS to PDF converter (version 2006.09.02).]
+\scratchcounter=\count114
+\scratchdimen=\dimen121
+\scratchbox=\box30
+\nofMPsegments=\count115
+\nofMParguments=\count116
+\everyMPshowfont=\toks28
+\MPscratchCnt=\count117
+\MPscratchDim=\dimen122
+\MPnumerator=\count118
+\makeMPintoPDFobject=\count119
+\everyMPtoPDFconversion=\toks29
+))) (/usr/share/texmf-dist/tex/generic/oberdiek/pdftexcmds.sty
+Package: pdftexcmds 2011/11/29 v0.20 Utility functions of pdfTeX for LuaTeX (HO
+)
+
+(/usr/share/texmf-dist/tex/generic/oberdiek/ifluatex.sty
+Package: ifluatex 2010/03/01 v1.3 Provides the ifluatex switch (HO)
+Package ifluatex Info: LuaTeX not detected.
+)
+(/usr/share/texmf-dist/tex/generic/oberdiek/ifpdf.sty
+Package: ifpdf 2011/01/30 v2.3 Provides the ifpdf switch (HO)
+Package ifpdf Info: pdfTeX in PDF mode is detected.
+)
+Package pdftexcmds Info: LuaTeX not detected.
+Package pdftexcmds Info: \pdf@primitive is available.
+Package pdftexcmds Info: \pdf@ifprimitive is available.
+Package pdftexcmds Info: \pdfdraftmode found.
+)
+(/usr/share/texmf-dist/tex/latex/oberdiek/epstopdf-base.sty
+Package: epstopdf-base 2010/02/09 v2.5 Base part for package epstopdf
+
+(/usr/share/texmf-dist/tex/latex/oberdiek/grfext.sty
+Package: grfext 2010/08/19 v1.1 Manage graphics extensions (HO)
+
+(/usr/share/texmf-dist/tex/generic/oberdiek/kvdefinekeys.sty
+Package: kvdefinekeys 2011/04/07 v1.3 Define keys (HO)
+))
+(/usr/share/texmf-dist/tex/latex/oberdiek/kvoptions.sty
+Package: kvoptions 2011/06/30 v3.11 Key value format for package options (HO)
+
+(/usr/share/texmf-dist/tex/generic/oberdiek/kvsetkeys.sty
+Package: kvsetkeys 2012/04/25 v1.16 Key value parser (HO)
+
+(/usr/share/texmf-dist/tex/generic/oberdiek/etexcmds.sty
+Package: etexcmds 2011/02/16 v1.5 Avoid name clashes with e-TeX commands (HO)
+Package etexcmds Info: Could not find \expanded.
+(etexcmds)             That can mean that you are not using pdfTeX 1.50 or
+(etexcmds)             that some package has redefined \expanded.
+(etexcmds)             In the latter case, load this package earlier.
+)))
+Package grfext Info: Graphics extension search list:
+(grfext)             [.png,.pdf,.jpg,.mps,.jpeg,.jbig2,.jb2,.PNG,.PDF,.JPG,.JPE
+G,.JBIG2,.JB2,.eps]
+(grfext)             \AppendGraphicsExtensions on input line 452.
+
+(/usr/share/texmf-dist/tex/latex/latexconfig/epstopdf-sys.cfg
+File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Liv
+e
+))
+\Gin@req@height=\dimen123
+\Gin@req@width=\dimen124
+)
+(/usr/share/texmf-dist/tex/latex/ucs/data/uni-0.def
+File: uni-0.def 2013/05/13 UCS: Unicode data U+0000..U+00FF
+)
+Overfull \hbox (101.24611pt too wide) in paragraph at lines 52--52
+[]\OT1/cmtt/m/n/10 64 bytes from primary.admin.cam.ac.uk (131.111.150.25): icmp
+_seq=1 ttl=48 time=212 ms[] 
+ []
+
+
+Overfull \hbox (101.24611pt too wide) in paragraph at lines 52--52
+[]\OT1/cmtt/m/n/10 64 bytes from primary.admin.cam.ac.uk (131.111.150.25): icmp
+_seq=2 ttl=48 time=212 ms[] 
+ []
+
+
+Overfull \hbox (101.24611pt too wide) in paragraph at lines 52--52
+[]\OT1/cmtt/m/n/10 64 bytes from primary.admin.cam.ac.uk (131.111.150.25): icmp
+_seq=3 ttl=48 time=241 ms[] 
+ []
+
+
+Overfull \hbox (101.24611pt too wide) in paragraph at lines 52--52
+[]\OT1/cmtt/m/n/10 64 bytes from primary.admin.cam.ac.uk (131.111.150.25): icmp
+_seq=4 ttl=48 time=212 ms[] 
+ []
+
+
+Overfull \hbox (101.24611pt too wide) in paragraph at lines 52--52
+[]\OT1/cmtt/m/n/10 64 bytes from primary.admin.cam.ac.uk (131.111.150.25): icmp
+_seq=5 ttl=48 time=220 ms[] 
+ []
+
+
+Overfull \hbox (101.24611pt too wide) in paragraph at lines 52--52
+[]\OT1/cmtt/m/n/10 64 bytes from primary.admin.cam.ac.uk (131.111.150.25): icmp
+_seq=6 ttl=48 time=215 ms[] 
+ []
+
+
+Overfull \hbox (101.24611pt too wide) in paragraph at lines 52--52
+[]\OT1/cmtt/m/n/10 64 bytes from primary.admin.cam.ac.uk (131.111.150.25): icmp
+_seq=7 ttl=48 time=237 ms[] 
+ []
+
+
+Overfull \hbox (101.24611pt too wide) in paragraph at lines 52--52
+[]\OT1/cmtt/m/n/10 64 bytes from primary.admin.cam.ac.uk (131.111.150.25): icmp
+_seq=8 ttl=48 time=212 ms[] 
+ []
+
+
+Overfull \hbox (101.24611pt too wide) in paragraph at lines 52--52
+[]\OT1/cmtt/m/n/10 64 bytes from primary.admin.cam.ac.uk (131.111.150.25): icmp
+_seq=9 ttl=48 time=212 ms[] 
+ []
+
+
+Overfull \hbox (106.49606pt too wide) in paragraph at lines 52--52
+[]\OT1/cmtt/m/n/10 64 bytes from primary.admin.cam.ac.uk (131.111.150.25): icmp
+_seq=10 ttl=48 time=213 ms[] 
+ []
+
+
+Overfull \hbox (95.99615pt too wide) in paragraph at lines 52--52
+[]\OT1/cmtt/m/n/10 64 bytes from cerejeira.unicamp.br (143.106.10.174): icmp_se
+q=1 ttl=59 time=0.455 ms[] 
+ []
+
+
+Overfull \hbox (95.99615pt too wide) in paragraph at lines 52--52
+[]\OT1/cmtt/m/n/10 64 bytes from cerejeira.unicamp.br (143.106.10.174): icmp_se
+q=2 ttl=59 time=0.425 ms[] 
+ []
+
+
+Overfull \hbox (95.99615pt too wide) in paragraph at lines 52--52
+[]\OT1/cmtt/m/n/10 64 bytes from cerejeira.unicamp.br (143.106.10.174): icmp_se
+q=3 ttl=59 time=0.493 ms[] 
+ []
+
+
+Overfull \hbox (95.99615pt too wide) in paragraph at lines 52--52
+[]\OT1/cmtt/m/n/10 64 bytes from cerejeira.unicamp.br (143.106.10.174): icmp_se
+q=4 ttl=59 time=0.435 ms[] 
+ []
+
+
+Overfull \hbox (95.99615pt too wide) in paragraph at lines 52--52
+[]\OT1/cmtt/m/n/10 64 bytes from cerejeira.unicamp.br (143.106.10.174): icmp_se
+q=5 ttl=59 time=0.481 ms[] 
+ []
+
+
+Overfull \hbox (95.99615pt too wide) in paragraph at lines 52--52
+[]\OT1/cmtt/m/n/10 64 bytes from cerejeira.unicamp.br (143.106.10.174): icmp_se
+q=6 ttl=59 time=0.429 ms[] 
+ []
+
+
+Overfull \hbox (95.99615pt too wide) in paragraph at lines 52--52
+[]\OT1/cmtt/m/n/10 64 bytes from cerejeira.unicamp.br (143.106.10.174): icmp_se
+q=7 ttl=59 time=0.430 ms[] 
+ []
+
+
+Overfull \hbox (95.99615pt too wide) in paragraph at lines 52--52
+[]\OT1/cmtt/m/n/10 64 bytes from cerejeira.unicamp.br (143.106.10.174): icmp_se
+q=8 ttl=59 time=0.515 ms[] 
+ []
+
+
+Overfull \hbox (95.99615pt too wide) in paragraph at lines 52--52
+[]\OT1/cmtt/m/n/10 64 bytes from cerejeira.unicamp.br (143.106.10.174): icmp_se
+q=9 ttl=59 time=0.457 ms[] 
+ []
+
+
+Overfull \hbox (101.24611pt too wide) in paragraph at lines 52--52
+[]\OT1/cmtt/m/n/10 64 bytes from cerejeira.unicamp.br (143.106.10.174): icmp_se
+q=10 ttl=59 time=0.512 ms[] 
+ []
+
+[1
+
+{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}]
+Overfull \hbox (1.49698pt too wide) in paragraph at lines 92--92
+[]        \OT1/cmtt/m/n/10 TX errors 0  dropped 0 overruns 0  carrier 0  collis
+ions 0[] 
+ []
+
+
+Overfull \hbox (1.49698pt too wide) in paragraph at lines 92--92
+[]        \OT1/cmtt/m/n/10 TX errors 0  dropped 0 overruns 0  carrier 0  collis
+ions 0[] 
+ []
+
+
+Overfull \hbox (53.99652pt too wide) in paragraph at lines 92--92
+[]        \OT1/cmtt/m/n/10 inet 177.220.85.121  netmask 255.255.254.0  broadcas
+t 177.220.85.255[] 
+ []
+
+
+Overfull \hbox (32.9967pt too wide) in paragraph at lines 92--92
+[]        \OT1/cmtt/m/n/10 inet6 fe80::224:d7ff:fe6b:9a34  prefixlen 64  scopei
+d 0x20<link>[] 
+ []
+
+
+Overfull \hbox (1.49698pt too wide) in paragraph at lines 92--92
+[]        \OT1/cmtt/m/n/10 TX errors 0  dropped 0 overruns 0  carrier 0  collis
+ions 0[] 
+ []
+
+[2]
+Overfull \hbox (1.49698pt too wide) in paragraph at lines 106--106
+[]        \OT1/cmtt/m/n/10 TX errors 0  dropped 0 overruns 0  carrier 0  collis
+ions 0[] 
+ []
+
+
+Overfull \hbox (1.49698pt too wide) in paragraph at lines 117--117
+[]        \OT1/cmtt/m/n/10 TX errors 0  dropped 0 overruns 0  carrier 0  collis
+ions 0[] 
+ []
+
+
+Overfull \hbox (59.24648pt too wide) in paragraph at lines 125--125
+[]\OT1/cmtt/m/n/10 Destination     Gateway         Genmask         Flags Metric
+ Ref    Use Iface[] 
+ []
+
+
+Overfull \hbox (64.49643pt too wide) in paragraph at lines 125--125
+[]\OT1/cmtt/m/n/10 default         gateway         0.0.0.0         UG    600   
+ 0        0 wlp2s0[] 
+ []
+
+
+Overfull \hbox (64.49643pt too wide) in paragraph at lines 125--125
+[]\OT1/cmtt/m/n/10 177.220.84.0    *               255.255.254.0   U     600   
+ 0        0 wlp2s0[] 
+ []
+
+[3]
+Overfull \hbox (38.24666pt too wide) in paragraph at lines 168--168
+[]\OT1/cmtt/m/n/10 traceroute to www.google.com (216.58.222.4), 30 hops max, 60
+ byte packets[] 
+ []
+
+
+Overfull \hbox (17.24684pt too wide) in paragraph at lines 168--168
+[] \OT1/cmtt/m/n/10 4  area3-gw.unicamp.br (143.106.1.129)  0.515 ms  0.575 ms 
+ 0.701 ms[] 
+ []
+
+
+Overfull \hbox (248.24483pt too wide) in paragraph at lines 168--168
+[] \OT1/cmtt/m/n/10 5  ptp-ncc-nbs.unicamp.br (143.106.199.9)  24.414 ms ptp-nc
+t-nbs.unicamp.br (143.106.199.13)  0.354 ms  0.419 ms[] 
+ []
+
+
+Overfull \hbox (1.49698pt too wide) in paragraph at lines 168--168
+[] \OT1/cmtt/m/n/10 6  as15169.sp.ix.br (187.16.216.55)  3.287 ms  3.238 ms  3.
+237 ms[] 
+ []
+
+
+Overfull \hbox (38.24666pt too wide) in paragraph at lines 168--168
+[] \OT1/cmtt/m/n/10 9  gru06s25-in-f4.1e100.net (216.58.222.4)  3.316 ms  3.523
+ ms  3.394 ms[] 
+ []
+
+
+Overfull \hbox (23.52832pt too wide) in paragraph at lines 169--172
+ \OT1/cmr/bx/n/10 6.1[] \OT1/cmr/m/n/10 Ex-is-tem 9 roteadores (para essa rota)
+ en-tre a minha maquina e www.google.com,
+ []
+
+[4]
+Overfull \hbox (43.49661pt too wide) in paragraph at lines 191--191
+[]\OT1/cmtt/m/n/10 traceroute to www.cam.ac.uk (131.111.150.25), 30 hops max, 6
+0 byte packets[] 
+ []
+
+
+Overfull \hbox (17.24684pt too wide) in paragraph at lines 191--191
+[] \OT1/cmtt/m/n/10 4  area3-gw.unicamp.br (143.106.1.129)  0.461 ms  0.550 ms 
+ 0.667 ms[] 
+ []
+
+
+Overfull \hbox (242.99487pt too wide) in paragraph at lines 191--191
+[] \OT1/cmtt/m/n/10 5  ptp-nct-nbs.unicamp.br (143.106.199.13)  0.396 ms ptp-nc
+c-nbs.unicamp.br (143.106.199.9)  0.396 ms  0.370 ms[] 
+ []
+
+
+Overfull \hbox (11.99689pt too wide) in paragraph at lines 191--191
+[] \OT1/cmtt/m/n/10 7  sp-sp2.bkb.rnp.br (200.143.253.37)  2.375 ms  2.369 ms  
+2.354 ms[] 
+ []
+
+
+Overfull \hbox (17.24684pt too wide) in paragraph at lines 191--191
+[] \OT1/cmtt/m/n/10 8  br-rnp.redclara.net (200.0.204.213)  3.600 ms  3.428 ms 
+ 3.469 ms[] 
+ []
+
+
+Overfull \hbox (74.99634pt too wide) in paragraph at lines 191--191
+[] \OT1/cmtt/m/n/10 9  redclara.lon.uk.geant.net (62.40.124.36)  202.729 ms  20
+2.728 ms  202.690 ms[] 
+ []
+
+
+Overfull \hbox (101.24611pt too wide) in paragraph at lines 191--191
+[]\OT1/cmtt/m/n/10 10  janet-gw.mx1.lon.uk.geant.net (62.40.124.198)  202.549 m
+s  202.777 ms  202.770 ms[] 
+ []
+
+
+Overfull \hbox (64.49643pt too wide) in paragraph at lines 191--191
+[]\OT1/cmtt/m/n/10 11  ae28.lowdss-sbr1.ja.net (146.97.33.18)  205.893 ms  206.
+173 ms  206.245 ms[] 
+ []
+
+
+Overfull \hbox (69.74638pt too wide) in paragraph at lines 191--191
+[]\OT1/cmtt/m/n/10 12  ae26.lowdss-ban1.ja.net (146.97.35.246)  206.213 ms  206
+.136 ms  206.128 ms[] 
+ []
+
+
+Overfull \hbox (169.49551pt too wide) in paragraph at lines 191--191
+[]\OT1/cmtt/m/n/10 13  University-of-Cambridge.lowdss-ban1.ja.net (146.97.41.24
+6)  217.530 ms  217.524 ms  215.467 ms[] 
+ []
+
+
+Overfull \hbox (64.49643pt too wide) in paragraph at lines 191--191
+[]\OT1/cmtt/m/n/10 14  b-ew.c-mi.net.cam.ac.uk (192.84.5.133)  208.334 ms  208.
+127 ms  208.195 ms[] 
+ []
+
+
+Overfull \hbox (122.24593pt too wide) in paragraph at lines 191--191
+[]\OT1/cmtt/m/n/10 15  route-mill.route-west.net.cam.ac.uk (192.84.5.98)  208.4
+07 ms  208.474 ms  208.416 ms[] 
+ []
+
+
+Overfull \hbox (74.99634pt too wide) in paragraph at lines 191--191
+[]\OT1/cmtt/m/n/10 16  primary.admin.cam.ac.uk (131.111.150.25)  208.446 ms  20
+8.415 ms  208.363 ms[] 
+ []
+
+
+Overfull \hbox (17.24684pt too wide) in paragraph at lines 213--213
+[] \OT1/cmtt/m/n/10 4  area3-gw.unicamp.br (143.106.1.129)  0.497 ms  0.689 ms 
+ 0.744 ms[] 
+ []
+
+
+Overfull \hbox (242.99487pt too wide) in paragraph at lines 213--213
+[] \OT1/cmtt/m/n/10 5  ptp-nct-nbs.unicamp.br (143.106.199.13)  0.435 ms  0.437
+ ms ptp-ncc-nbs.unicamp.br (143.106.199.9)  0.410 ms[] 
+ []
+
+
+Overfull \hbox (11.99689pt too wide) in paragraph at lines 213--213
+[] \OT1/cmtt/m/n/10 7  sp-sp2.bkb.rnp.br (200.143.253.37)  2.364 ms  2.348 ms  
+2.338 ms[] 
+ []
+
+
+Overfull \hbox (300.74437pt too wide) in paragraph at lines 213--213
+[] \OT1/cmtt/m/n/10 8  mia2-sp-par-pac.bkb.rnp.br (200.143.252.34)  155.320 ms 
+ 155.324 ms mia2-sp-tws.bkb.rnp.br (200.143.252.22)  155.989 ms[] 
+ []
+
+
+Overfull \hbox (59.24648pt too wide) in paragraph at lines 213--213
+[] \OT1/cmtt/m/n/10 9  mia1-mia2.bkb.rnp.br (200.143.252.25)  157.509 ms  156.0
+88 ms  156.011 ms[] 
+ []
+
+
+Overfull \hbox (106.49606pt too wide) in paragraph at lines 213--213
+[]\OT1/cmtt/m/n/10 10  xe-9-3-2.edge2.Miami2.Level3.net (4.59.242.41)  156.742 
+ms  156.866 ms  156.730 ms[] 
+ []
+
+
+Overfull \hbox (95.99615pt too wide) in paragraph at lines 213--213
+[]\OT1/cmtt/m/n/10 11  ae-1-9.bar1.Warsaw1.Level3.net (4.69.153.70)  296.796 ms
+  296.879 ms  297.160 ms[] 
+ []
+
+
+Overfull \hbox (95.99615pt too wide) in paragraph at lines 213--213
+[]\OT1/cmtt/m/n/10 12  ae-1-9.bar1.Warsaw1.Level3.net (4.69.153.70)  296.549 ms
+  297.698 ms  297.633 ms[] 
+ []
+
+
+Overfull \hbox (80.24629pt too wide) in paragraph at lines 213--213
+[]\OT1/cmtt/m/n/10 13  LWLcom-Bremen.level3.net (213.242.117.58)  297.634 ms  2
+97.199 ms  297.225 ms[] 
+ []
+
+
+Overfull \hbox (3.44499pt too wide) in paragraph at lines 214--217
+\OT1/cmr/m/n/10 roteadores sem-pre fal-ham, mas con-segui os en-dere^^Xcos dos 
+primeiros 13 roteadores.
+ []
+
+[5]
+Overfull \hbox (53.99652pt too wide) in paragraph at lines 233--233
+[]\OT1/cmtt/m/n/10 HOST: vmy1.home.net.pl            Loss%   Snt   Last   Avg  
+Best  Wrst StDev[] 
+ []
+
+
+Overfull \hbox (53.99652pt too wide) in paragraph at lines 233--233
+[]  \OT1/cmtt/m/n/10 1.|-- adx01.home.net.pl          0.0%     5    0.4   0.4  
+ 0.3   0.4   0.0[] 
+ []
+
+
+Overfull \hbox (53.99652pt too wide) in paragraph at lines 233--233
+[]  \OT1/cmtt/m/n/10 2.|-- 62.129.251.154             0.0%     5    0.2  14.5  
+ 0.2  71.4  31.8[] 
+ []
+
+
+Overfull \hbox (53.99652pt too wide) in paragraph at lines 233--233
+[]  \OT1/cmtt/m/n/10 3.|-- dialup-212.162.18.57.fran  0.0%     5    0.6  11.4  
+ 0.6  54.5  24.1[] 
+ []
+
+
+Overfull \hbox (53.99652pt too wide) in paragraph at lines 233--233
+[]  \OT1/cmtt/m/n/10 4.|-- ae-2-52.edge2.Miami2.Leve 80.0%     5  140.6 140.6 1
+40.6 140.6   0.0[] 
+ []
+
+
+Overfull \hbox (53.99652pt too wide) in paragraph at lines 233--233
+[]  \OT1/cmtt/m/n/10 5.|-- ae-2-52.edge2.Miami2.Leve 60.0%     5  140.6 140.6 1
+40.6 140.6   0.0[] 
+ []
+
+
+Overfull \hbox (53.99652pt too wide) in paragraph at lines 233--233
+[]  \OT1/cmtt/m/n/10 6.|-- LATIN-AMERI.edge2.Miami2.  0.0%     5  140.4 145.4 1
+40.4 165.5  11.2[] 
+ []
+
+
+Overfull \hbox (53.99652pt too wide) in paragraph at lines 233--233
+[]  \OT1/cmtt/m/n/10 7.|-- mia2-mia1.bkb.rnp.br       0.0%     5  140.5 140.5 1
+40.5 140.5   0.0[] 
+ []
+
+
+Overfull \hbox (53.99652pt too wide) in paragraph at lines 233--233
+[]  \OT1/cmtt/m/n/10 8.|-- sp-mia2-par-pac.bkb.rnp.b  0.0%     5  304.8 304.8 3
+04.8 304.8   0.0[] 
+ []
+
+
+Overfull \hbox (53.99652pt too wide) in paragraph at lines 233--233
+[]  \OT1/cmtt/m/n/10 9.|-- sp2-sp.bkb.rnp.br          0.0%     5  304.4 305.6 3
+04.4 310.3   2.7[] 
+ []
+
+
+Overfull \hbox (53.99652pt too wide) in paragraph at lines 233--233
+[] \OT1/cmtt/m/n/10 10.|-- rnp-nct.unicamp.br         0.0%     5  296.4 296.4 2
+96.4 296.4   0.0[] 
+ []
+
+
+Overfull \hbox (53.99652pt too wide) in paragraph at lines 233--233
+[] \OT1/cmtt/m/n/10 11.|-- ptp-nbs-nct.unicamp.br    20.0%     5  295.5 295.5 2
+95.4 295.5   0.0[] 
+ []
+
+
+Overfull \hbox (53.99652pt too wide) in paragraph at lines 233--233
+[] \OT1/cmtt/m/n/10 12.|-- ic-gw.unicamp.br          20.0%     5  296.5 296.5 2
+96.5 296.5   0.0[] 
+ []
+
+
+Overfull \hbox (53.99652pt too wide) in paragraph at lines 233--233
+[] \OT1/cmtt/m/n/10 13.|-- ic3-gw.ic.unicamp.br      20.0%     5  296.9 296.8 2
+96.7 296.9   0.1[] 
+ []
+
+
+Overfull \hbox (53.99652pt too wide) in paragraph at lines 233--233
+[] \OT1/cmtt/m/n/10 14.|-- xaveco.lab.ic.unicamp.br  20.0%     5  296.9 296.9 2
+96.7 297.2   0.2[] 
+ []
+
+
+Overfull \hbox (38.24666pt too wide) in paragraph at lines 269--269
+[]\OT1/cmtt/m/n/10 Proto Recv-Q Send-Q Local Address           Foreign Address 
+        State[] 
+ []
+
+
+Overfull \hbox (69.74638pt too wide) in paragraph at lines 269--269
+[]\OT1/cmtt/m/n/10 tcp        0      0 x201:53068              cerejeira.unic:w
+ww-http ESTABLISHED[] 
+ []
+
+
+Overfull \hbox (69.74638pt too wide) in paragraph at lines 269--269
+[]\OT1/cmtt/m/n/10 tcp        0      0 x201:54104              ec2-52-5-60-70:w
+ww-http ESTABLISHED[] 
+ []
+
+
+Overfull \hbox (69.74638pt too wide) in paragraph at lines 269--269
+[]\OT1/cmtt/m/n/10 tcp        0      0 x201:57505              ec2-52-2-147-2:w
+ww-http ESTABLISHED[] 
+ []
+
+
+Overfull \hbox (69.74638pt too wide) in paragraph at lines 269--269
+[]\OT1/cmtt/m/n/10 tcp        0      0 localhost.localdo:46940 localhost.locald
+o:43664 ESTABLISHED[] 
+ []
+
+
+Overfull \hbox (69.74638pt too wide) in paragraph at lines 269--269
+[]\OT1/cmtt/m/n/10 tcp        0      0 x201:43593              ce-in-f189.1e100
+.:https ESTABLISHED[] 
+ []
+
+
+Overfull \hbox (69.74638pt too wide) in paragraph at lines 269--269
+[]\OT1/cmtt/m/n/10 tcp        0      0 x201:53069              cerejeira.unic:w
+ww-http ESTABLISHED[] 
+ []
+
+
+Overfull \hbox (69.74638pt too wide) in paragraph at lines 269--269
+[]\OT1/cmtt/m/n/10 tcp        0      0 x201:53067              cerejeira.unic:w
+ww-http ESTABLISHED[] 
+ []
+
+
+Overfull \hbox (69.74638pt too wide) in paragraph at lines 269--269
+[]\OT1/cmtt/m/n/10 tcp        0      0 x201:57525              ec2-52-2-147-2:w
+ww-http ESTABLISHED[] 
+ []
+
+
+Overfull \hbox (69.74638pt too wide) in paragraph at lines 269--269
+[]\OT1/cmtt/m/n/10 tcp        0      0 x201:53070              cerejeira.unic:w
+ww-http ESTABLISHED[] 
+ []
+
+
+Overfull \hbox (69.74638pt too wide) in paragraph at lines 269--269
+[]\OT1/cmtt/m/n/10 tcp        0      0 x201:53073              cerejeira.unic:w
+ww-http ESTABLISHED[] 
+ []
+
+
+Overfull \hbox (69.74638pt too wide) in paragraph at lines 269--269
+[]\OT1/cmtt/m/n/10 tcp        0      0 x201:53065              cerejeira.unic:w
+ww-http ESTABLISHED[] 
+ []
+
+
+Overfull \hbox (69.74638pt too wide) in paragraph at lines 269--269
+[]\OT1/cmtt/m/n/10 tcp        0      0 x201:53795              ec2-54-209-59-:w
+ww-http ESTABLISHED[] 
+ []
+
+
+Overfull \hbox (69.74638pt too wide) in paragraph at lines 269--269
+[]\OT1/cmtt/m/n/10 tcp        0      0 x201:54102              ec2-52-5-60-70:w
+ww-http ESTABLISHED[] 
+ []
+
+
+Overfull \hbox (69.74638pt too wide) in paragraph at lines 269--269
+[]\OT1/cmtt/m/n/10 tcp        0      0 x201:57517              ec2-52-2-147-2:w
+ww-http ESTABLISHED[] 
+ []
+
+
+Overfull \hbox (69.74638pt too wide) in paragraph at lines 269--269
+[]\OT1/cmtt/m/n/10 tcp        0      0 x201:53774              ec2-54-209-59-:w
+ww-http ESTABLISHED[] 
+ []
+
+
+Overfull \hbox (69.74638pt too wide) in paragraph at lines 269--269
+[]\OT1/cmtt/m/n/10 tcp        0      0 localhost.localdo:46941 localhost.locald
+o:43664 ESTABLISHED[] 
+ []
+
+
+Overfull \hbox (69.74638pt too wide) in paragraph at lines 269--269
+[]\OT1/cmtt/m/n/10 tcp        0      0 x201:53071              cerejeira.unic:w
+ww-http ESTABLISHED[] 
+ []
+
+
+Overfull \hbox (69.74638pt too wide) in paragraph at lines 269--269
+[]\OT1/cmtt/m/n/10 tcp        0      0 x201:41302              stackoverflow.:w
+ww-http ESTABLISHED[] 
+ []
+
+
+Overfull \hbox (69.74638pt too wide) in paragraph at lines 269--269
+[]\OT1/cmtt/m/n/10 tcp        0      0 x201:53796              ec2-54-209-59-:w
+ww-http ESTABLISHED[] 
+ []
+
+[6]
+Overfull \hbox (69.74638pt too wide) in paragraph at lines 269--269
+[]\OT1/cmtt/m/n/10 tcp        0      0 x201:53782              ec2-54-209-59-:w
+ww-http ESTABLISHED[] 
+ []
+
+
+Overfull \hbox (69.74638pt too wide) in paragraph at lines 269--269
+[]\OT1/cmtt/m/n/10 tcp        0      0 localhost.localdo:43664 localhost.locald
+o:46940 ESTABLISHED[] 
+ []
+
+
+Overfull \hbox (69.74638pt too wide) in paragraph at lines 269--269
+[]\OT1/cmtt/m/n/10 tcp        0      0 localhost.localdo:43664 localhost.locald
+o:46941 ESTABLISHED[] 
+ []
+
+
+Overfull \hbox (69.74638pt too wide) in paragraph at lines 269--269
+[]\OT1/cmtt/m/n/10 tcp        0      0 x201:53072              cerejeira.unic:w
+ww-http ESTABLISHED[] 
+ []
+
+
+Overfull \hbox (69.74638pt too wide) in paragraph at lines 269--269
+[]\OT1/cmtt/m/n/10 tcp        0      0 x201:54082              ec2-52-5-60-70:w
+ww-http ESTABLISHED[] 
+ []
+
+
+Overfull \hbox (64.49643pt too wide) in paragraph at lines 269--269
+[]\OT1/cmtt/m/n/10 tcp6       1      0 localhost.localdo:34697 localhost.locald
+oma:ipp CLOSE_WAIT[] 
+ []
+
+
+Overfull \hbox (64.49643pt too wide) in paragraph at lines 269--269
+[]\OT1/cmtt/m/n/10 tcp6       1      0 localhost.localdo:34698 localhost.locald
+oma:ipp CLOSE_WAIT[] 
+ []
+
+
+Overfull \hbox (41.72171pt too wide) in paragraph at lines 270--272
+ \OT1/cmr/bx/n/10 7.1[] \OT1/cmr/m/n/10 O site www.unicamp.br aparente-mente es
+t^^Sa hospedado no host cere-jeira.unicamp.br,
+ []
+
+
+Overfull \hbox (74.99634pt too wide) in paragraph at lines 323--323
+[]\OT1/cmtt/m/n/10 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:40.0) Gecko/2
+0100101 Firefox/40.0[] 
+ []
+
+
+Overfull \hbox (27.74675pt too wide) in paragraph at lines 323--323
+[]\OT1/cmtt/m/n/10 Accept: text/html,application/xhtml+xml,application/xml;q=0.
+9,*/*;q=0.8[] 
+ []
+
+[7]
+Overfull \hbox (64.49643pt too wide) in paragraph at lines 323--323
+[]\OT1/cmtt/m/n/10 <HTML><HEAD><meta http-equiv="content-type" content="text/ht
+ml;charset=utf-8">[] 
+ []
+
+
+Overfull \hbox (127.49588pt too wide) in paragraph at lines 323--323
+[]\OT1/cmtt/m/n/10 \paragraph{8.2} Caso n~ao haja um servi^^Xco rodando na port
+a que o telnet tenta se conectar a[] 
+ []
+
+
+Overfull \hbox (1.4451pt too wide) in paragraph at lines 324--325
+\OT1/cmr/m/n/10 /paragraph Ou, se hou-ver um fil-tro de pa-cotes bar-rando as t
+en-ta-ti-vas de conex~ao: 
+ []
+
+[8] (./lab2.aux) ) 
+Here is how much of TeX's memory you used:
+ 3991 strings out of 493109
+ 55386 string characters out of 6140856
+ 135629 words of memory out of 5000000
+ 7399 multiletter control sequences out of 15000+600000
+ 8430 words of font info for 31 fonts, out of 8000000 for 9000
+ 1141 hyphenation exceptions out of 8191
+ 51i,4n,27p,388b,587s stack positions out of 5000i,500n,10000p,200000b,80000s
+</usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.
+pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/shar
+e/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/share/texmf-dist/fo
+nts/type1/public/amsfonts/cm/cmr17.pfb></usr/share/texmf-dist/fonts/type1/publi
+c/amsfonts/cm/cmtt10.pfb>
+Output written on lab2.pdf (8 pages, 87572 bytes).
+PDF statistics:
+ 51 PDF objects out of 1000 (max. 8388607)
+ 35 compressed objects within 1 object stream
+ 0 named destinations out of 1000 (max. 500000)
+ 1 words of extra memory for PDF output out of 10000 (max. 10000000)
+

@@ -1,0 +1,19 @@
+\documentclass{article}
+\usepackage[utf8x]{inputenc}
+\usepackage{amsmath}
+\usepackage{algorithm}
+\usepackage{algorithmicx}
+\usepackage[noend]{algpseudocode}
+\usepackage{mathtools}
+\newcommand*\Let[2]{\State #1 $\gets$ #2}
+\algrenewcommand\algorithmicrequire{\textbf{Precondition:}}
+\algrenewcommand\algorithmicensure{\textbf{Postcondition:}}
+\title{Atividade 1 - Pseudo código de um cliente e servidor, em TCP e UDP}
+\author{ }
+\date{}
+\begin{document}
+
+\maketitle
+\section{Introdução}
+
+\end{document}

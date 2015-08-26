@@ -1,0 +1,114 @@
+\documentclass{article}
+\usepackage[utf8x]{inputenc}
+\usepackage{amsmath}
+\usepackage{algorithm}
+\usepackage{algorithmicx}
+\usepackage[noend]{algpseudocode}
+\usepackage{mathtools}
+\newcommand*\Let[2]{\State #1 $\gets$ #2}
+\algrenewcommand\algorithmicrequire{\textbf{Precondition:}}
+\algrenewcommand\algorithmicensure{\textbf{Postcondition:}}
+\title{Atividade 1 - Pseudo código de um cliente e servidor, em TCP e UDP}
+\author{ }
+\date{}
+\begin{document}
+
+\maketitle
+\section{Introdução}
+\paragraph{} Nesta atividade iremos detalhar a implementação (em pseudo-código) de um cliente e
+de um servidor básicos tanto para o protocolo TCP/IP quando para o UDP/IP. A aplicação implementada será
+a mais simples possível.
+\section*{TCP}
+\paragraph{} O protocolo TCP é um protocolo orientado a conexões, logo para que qualquer transmissão ocorra
+é necessario primeiro estabelecer uma conexão, além disso, uma vez estabelecida uma conexão a comunicação
+ocorre em um fluxo (stream).
+\paragraph{} Tipicamente cada cliente do servidor é tratado como um arquivo, tendo assim seu proprio descritor,
+é importante pensar em concorrencia em um servidor TCP poís ambas as operações de escrita e leitura são
+tipicamente bloqueantes e ocorrem por descritor.
+
+\subsection{Cliente}
+\paragraph{} O cliente TCP não precisa saber sua própria porta de origem, o sistema
+se encarrega de escolher uma disponivel, ele pode ser implementado da seguinte maneira:
+\begin{algorithm}
+  \caption{Cliente TCP
+    \label{alg:cliente-tcp}}
+  \begin{algorithmic}[1]
+    \Statex
+    \Function{}{}
+    \Let{socket}{createTCPSocket()} \Comment{Cria um socket}
+    \Let{data}{dataToSend}
+    \State connectSocketToServer(socket,server\_address,server\_port)
+    \State Send(data,socket)
+    \State Receive(buffer,socket)
+    \State Print(buffer)
+    \State close{socket}
+      \EndFunction
+  \end{algorithmic}
+\end{algorithm}
+\subsection{Servidor}
+\paragraph{} O servidor TCP como dito antes é sensivel a bloqueios, assim é necessario
+pensar em concorrencia mesmo em aplicação de baixo volume.
+\paragraph{} Outra caracteristica do servidor é que o mesmo deve ouvir por clientes em uma porta
+especifica, não se conecatar diretamente a eles.
+\begin{algorithm}
+  \caption{Servidor TCP
+    \label{alg:servidor-tcp}}
+  \begin{algorithmic}[1]
+    \Statex
+    \Function{Listen}{}
+    \Let{socket}{createTCPSocket()} \Comment{Cria um socket}
+    \State bindSocket(socket,port) \Comment{Liga o servidor a uma porta}
+    \State listen(socket) \Comment{Avisa o sistema que vai receber conexões}
+    \While{True}
+      \Let{client}{accept(socket)} \Comment{Recebe uma conexão}
+      \Let{PID}{Fork}
+      \If{$PID \neq 0$}
+      \State accept(client)
+      \Else
+      \State close(client)
+      \EndIf
+      \EndWhile
+      \State close(socket)
+      \EndFunction
+      \Function{Accept}{client}
+      \State Receive(client,\&buffer)
+      \State Send(client,buffer)
+      \EndFunction
+  \end{algorithmic}
+\end{algorithm}
+\section*{UDP}
+\subsection{Cliente}
+\paragraph{} O cliente UDP é bem similar ao TCP, porém não é necessario usar criar uma conexão,
+poís os dados não seguem em fluxo, mas em mensagens (datagrams)
+\begin{algorithm}
+  \begin{algorithmic}[1]
+    \Statex
+    \Function{}{}
+    \Let{socket}{createUDPSocket()} \Comment{Cria um socket}
+    \Let{data}{dataToSend}
+    \State SendTo(data,socket,serverAddress,serverPort)
+    \State ReceiveFrom(\&buffer,socket,\&serverAddress,\&serverPort)
+    \State Print(buffer)
+    \State close{socket}
+      \EndFunction
+  \end{algorithmic}
+\end{algorithm}
+
+\subsection{Servidor}
+\paragraph{}O servidor UDP é bastante interessante, por sem um protocolo sem conexão ele é
+naturalmente não bloqueante, o que reduz muito a necessidade de concorrencia no servidor.
+\begin{algorithm}
+  \begin{algorithmic}[1]
+    \Statex
+    \Function{}{}
+    \Let{socket}{createUDPSocket()} \Comment{Cria um socket}
+    \While{True}
+    \State ReceiveFrom(\&buffer,socket,\&clientAddress,\&clientPort)
+    \State SendTo(data,socket,clientAddress,clientPort)
+    \EndWhile
+    \State close{socket}
+      \EndFunction
+  \end{algorithmic}
+\end{algorithm}
+
+\end{document}

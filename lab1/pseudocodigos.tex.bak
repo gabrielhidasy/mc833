@@ -1,0 +1,285 @@
+\documentclass{article}
+\usepackage[utf8x]{inputenc}
+\usepackage{amsmath}
+\usepackage{algorithm}
+\usepackage{algorithmicx}
+\usepackage[noend]{algpseudocode}
+\usepackage{mathtools}
+\newcommand*\Let[2]{\State #1 $\gets$ #2}
+\algrenewcommand\algorithmicrequire{\textbf{Precondition:}}
+\algrenewcommand\algorithmicensure{\textbf{Postcondition:}}
+\title{Atividade 1 - Pseudo código de um cliente e servidor, em TCP e UDP}
+\author{ }
+\date{}
+\begin{document}
+
+\maketitle
+\section{Introdução}
+\paragraph{} Nesta atividade iremos detalhar a implementação (em pseudo-código) de um cliente e
+de um servidor básicos tanto para o protocolo TCP/IP quando para o UDP/IP.
+\section*{TCP}
+\paragraph{} O protocolo TCP é um protocolo orientado a conexões, logo para que qualquer transmissão ocorra
+é necessario primeiro estabelecer uma conexão, além disso, uma vez estabelecida uma conexão a comunicação
+ocorre em um fluxo (stream).
+\paragraph{} Tipicamente cada cliente do servidor é tratado como um arquivo, tendo assim seu proprio descritor,
+é importante pensar em concorrencia em um servidor TCP poís ambas as operações de escrita e leitura são
+tipicamente bloqueantes e ocorrem por descritor.
+
+\subsection{Cliente}
+\paragraph{} O cliente TCP não precisa saber sua própria porta de origem, o sistema
+se encarrega de escolher uma disponivel, ele pode ser implementado da seguinte maneira:
+\begin{algorithm}
+  \caption{Cliente TCP
+    \label{alg:cliente-tcp}}
+  \begin{algorithmic}[1]
+    \Statex
+    \Function{}{}
+    \Let{socket}{createTCPSocket()} \Comment{Cria um socket}
+    \Let{data}{dataToSend}
+    \State connectSocketToServer(socket,server\_address,server\_port)
+    \State Send(data,socket)
+    \State Receive(buffer,socket)
+    \State Print(buffer)
+    \State close{socket}
+      \EndFunction
+  \end{algorithmic}
+\end{algorithm}
+\subsection{Servidor}
+\paragraph{} O servidor TCP como dito antes é sensivel a bloqueios, assim é necessario
+pensar em concorrencia mesmo em aplicação de baixo volume.
+\paragraph{} Outra caracteristica do servidor é que o mesmo deve ouvir por clientes em uma porta
+especifica, não se conecatar diretamente a eles.
+\begin{algorithm}
+  \caption{Servidor TCP
+    \label{alg:servidor-tcp}}
+  \begin{algorithmic}[1]
+    \Statex
+    \Function{Listen}{}
+    \Let{socket}{createTCPSocket()} \Comment{Cria um socket}
+    \State bindSocket(socket,port) \Comment{Liga o servidor a uma porta}
+    \State listen(socket) \Comment{Avisa o sistema que vai receber conexões}
+    \While{True}
+      \Let{client}{accept(socket)} \Comment{Recebe uma conexão}
+      \Let{PID}{Fork}
+      \If{$PID \neq 0$}
+      \State accept(client)
+      \Else
+      \State close(client)
+      \EndIf
+      \EndWhile
+      \State close(socket)
+      \EndFunction
+      \Function{Accept}{client}
+      \State Receive(client,\&buffer)
+      \State Send(client,buffer)
+      \EndFunction
+  \end{algorithmic}
+\end{algorithm}
+\section*{UDP}
+\subsection{Cliente}
+\paragraph{} O cliente UDP é bem similar ao TCP, porém não é necessario usar criar uma conexão,
+poís os dados não seguem em fluxo, mas em mensagens (datagrams)
+\begin{algorithm}
+  \begin{algorithmic}[1]
+    \Statex
+    \Function{}{}
+    \Let{socket}{createUDPSocket()} \Comment{Cria um socket}
+    \Let{data}{dataToSend}
+    \State SendTo(data,socket,serverAddress,serverPort)
+    \State ReceiveFrom(\&buffer,socket,\&serverAddress,\&serverPort)
+    \State Print(buffer)
+    \State close{socket}
+      \EndFunction
+  \end{algorithmic}
+\end{algorithm}
+
+\subsection{Servidor}
+\paragraph{}O servidor UDP é bastante interessante, por sem um protocolo sem conexão ele é
+naturalmente não bloqueante, o que reduz muito a necessidade de concorrencia no servidor.
+\begin{algorithm}
+  \begin{algorithmic}[1]
+    \Statex
+    \Function{}{}
+    \Let{socket}{createUDPSocket()} \Comment{Cria um socket}
+    \While{True}
+    \State ReceiveFrom(\&buffer,socket,\&clientAddress,\&clientPort)
+    \State SendTo(data,socket,clientAddress,clientPort)
+    \EndWhile
+    \State close{socket}
+      \EndFunction
+  \end{algorithmic}
+\end{algorithm}
+\section{Código em C}
+\paragraph{} O código abaixo implementa os dois servidores e clientes, uma linha em main decide
+qual das 4 aplicações deve ser compilada
+\begin{verbatim}
+/***********************************************************/
+/* Gabriel Hidasy Rezende, RA116928 */
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <unistd.h>
+#include <sys/types.h> 
+#include <sys/socket.h>
+#include <netinet/in.h>
+#include<arpa/inet.h>
+#include<signal.h>
+void err(char *msg)
+{
+  fprintf(stderr,"%s\n",msg);
+  exit(0);
+}
+
+int stopsignal = 1;
+void sighandler(int signo)
+{
+  if (signo == SIGINT) {
+    printf("Server shutting down, this can take a minute...\n");
+    stopsignal = 0;
+  }
+}
+
+/* Exercicio 1a, um exemplo de codigo para um servidor TCP */
+
+void TCPserverAccepter(int client)
+{
+  send(client,"200 OK\nHI\n",10,0);
+  close(client);
+}
+void TCPserverListener()
+{
+  int sockfd, client, port = 12345;
+  char buffer[1024];
+  struct sockaddr_in serv_addr, cli_addr;
+  sockfd = socket(AF_INET, SOCK_STREAM,0);
+  if(sockfd < 0) {
+    err("Erro abrindo o socket TCP de servidor");
+  }
+  //Ler sobre os campos dessa estrutura
+  serv_addr.sin_family = AF_INET;
+  serv_addr.sin_addr.s_addr = INADDR_ANY;
+  serv_addr.sin_port = htons(port);
+  
+  int len = sizeof(serv_addr);
+
+  if(bind(sockfd, (struct sockaddr *) &serv_addr, len) < 0) {
+    err("Erro no binding do servidor TCP");
+  }
+  listen(sockfd,5);
+
+  int pid;
+  while (stopsignal) {
+    client = accept(sockfd, (struct sockaddr *) &cli_addr, &len);
+    pid = fork();
+    if (pid < 0) {
+      close(client);
+      err("Erro no fork()");
+      continue;
+    }
+    if (pid == 0) {
+      /*Trata o cliente*/
+      TCPserverAccepter(client);
+      break;
+    }
+    /*Loga o pid do filho pra matar o servidor de forma limpa com um C-c*/
+  }
+  close(sockfd);
+  return;
+}
+
+/* Exercicio 1b, um exemplo de codigo para um cliente TCP */
+void TCPClient() {
+  struct sockaddr_in my_addr, server_addr;
+  int sockfd;
+  sockfd = socket(AF_INET,SOCK_STREAM,0);
+  memset(&my_addr,0,sizeof(my_addr));
+  my_addr.sin_family = AF_INET;
+  my_addr.sin_port = htons(12345);
+  my_addr.sin_addr.s_addr = inet_addr("127.0.0.1");
+  if (sockfd < 0) {
+    err("Erro com o socket do cliente TCP");
+  }
+  int len = sizeof(my_addr);
+  if(connect(sockfd, (struct sockaddr*) &my_addr, len) < 0) {
+    err("Erro na conect do cliente TCP");
+  }
+  fprintf(stdout,"Cliente conectado!\n");
+  char buffer[1024];
+  recv(sockfd,&buffer,1024,0);
+  fprintf(stdout,"from the server:\n%s",buffer);
+  close(sockfd);
+  return;    
+}
+
+void UDPServer()
+{
+  int sockfd, client, port = 12345;
+  char buffer[1024];
+  struct sockaddr_in serv_addr, cli_addr;
+  sockfd = socket(AF_INET, SOCK_DGRAM,0);
+  if(sockfd < 0) {
+    err("Erro abrindo o socket UDP de servidor");
+  }
+  //Ler sobre os campos dessa estrutura
+  serv_addr.sin_family = AF_INET;
+  serv_addr.sin_addr.s_addr = INADDR_ANY;
+  serv_addr.sin_port = htons(port);
+  
+  int len = sizeof(serv_addr);
+
+  if(bind(sockfd, (struct sockaddr *) &serv_addr, len) < 0) {
+    err("Erro no binding do servidor UDP");
+  }
+  /* O servidor UDP não usa listen(n) */
+
+  int pid;
+  int rlen;
+  while (stopsignal) {
+    /* Logo ele também não roda accept, só recv */
+    rlen = recvfrom(sockfd, buffer, 1024, 0, (struct sockaddr *) &cli_addr, &len);
+    buffer[rlen] = 0;
+    printf("%s\n",buffer);
+    sendto(sockfd,buffer,rlen,0,(struct sockaddr *) &cli_addr,sizeof(cli_addr));
+    /* E como não há conexão, o socket não fica preso a um cliente, */
+    /*o que diminue  muito a necessidade de forks ou threads */
+  }
+  close(sockfd);
+  return;
+}
+
+/* Exercicio 2b, um exemplo de codigo para um cliente UDP */
+void UDPClient() {
+  /* UDP é um pouco diferente de TCP, aqui não há coneção*/
+  struct sockaddr_in server_addr;
+  int sockfd;
+  /* A primeira diferença é que o socket é de datagram */
+  sockfd = socket(AF_INET,SOCK_DGRAM,0);
+  memset(&server_addr,0,sizeof(server_addr));
+  server_addr.sin_family = AF_INET;
+  server_addr.sin_port = htons(12345);
+  server_addr.sin_addr.s_addr = inet_addr("127.0.0.1");
+  if (sockfd < 0) {
+    err("Erro com o socket do cliente UDP");
+  }
+  int len = sizeof(server_addr);
+  char sbuffer[1024] = "mensagem do cliente pra você\nola\n";
+  char rbuffer[1024];
+  int rlen;
+  sendto(sockfd,sbuffer,strlen(sbuffer),0,(struct sockaddr *) &server_addr, sizeof(server_addr));
+  rlen = recvfrom(sockfd,rbuffer,1024,0,NULL,NULL);
+  rbuffer[rlen] = 0;
+  fprintf(stdout,"from the server:\n%s",rbuffer);
+  close(sockfd);
+  return;    
+}
+
+int main (int argc, char *argv[])
+{
+  signal(SIGINT,sighandler);
+  //TCPserverListener();
+  //TCPClient();
+  //UDPClient();
+  UDPServer();
+}
+\end{verbatim}
+\end{document}

@@ -1,0 +1,330 @@
+\documentclass{article}
+\usepackage[utf8x]{inputenc}
+\usepackage{amsmath}
+\usepackage{algorithm}
+\usepackage{algorithmicx}
+\usepackage[noend]{algpseudocode}
+\usepackage{mathtools}
+\newcommand*\Let[2]{\State #1 $\gets$ #2}
+\algrenewcommand\algorithmicrequire{\textbf{Precondition:}}
+\algrenewcommand\algorithmicensure{\textbf{Postcondition:}}
+\title{Atividade 1 - Pseudo código de um cliente e servidor, em TCP e UDP}
+\author{ }
+\date{}
+\begin{document}
+
+\maketitle
+\section*{Ping}
+\paragraph{} Ping usa o protocolo ICMP, enviando echo requests.
+\begin{verbatim}
+PING www.cam.ac.uk (131.111.150.25) 56(84) bytes of data.
+64 bytes from primary.admin.cam.ac.uk (131.111.150.25): icmp_seq=1 ttl=48 time=212 ms
+64 bytes from primary.admin.cam.ac.uk (131.111.150.25): icmp_seq=2 ttl=48 time=212 ms
+64 bytes from primary.admin.cam.ac.uk (131.111.150.25): icmp_seq=3 ttl=48 time=241 ms
+64 bytes from primary.admin.cam.ac.uk (131.111.150.25): icmp_seq=4 ttl=48 time=212 ms
+64 bytes from primary.admin.cam.ac.uk (131.111.150.25): icmp_seq=5 ttl=48 time=220 ms
+64 bytes from primary.admin.cam.ac.uk (131.111.150.25): icmp_seq=6 ttl=48 time=215 ms
+64 bytes from primary.admin.cam.ac.uk (131.111.150.25): icmp_seq=7 ttl=48 time=237 ms
+64 bytes from primary.admin.cam.ac.uk (131.111.150.25): icmp_seq=8 ttl=48 time=212 ms
+64 bytes from primary.admin.cam.ac.uk (131.111.150.25): icmp_seq=9 ttl=48 time=212 ms
+64 bytes from primary.admin.cam.ac.uk (131.111.150.25): icmp_seq=10 ttl=48 time=213 ms
+
+--- www.cam.ac.uk ping statistics ---
+10 packets transmitted, 10 received, 0% packet loss, time 9010ms
+rtt min/avg/max/mdev = 212.359/219.129/241.259/10.381 ms
+
+PING cerejeira.unicamp.br (143.106.10.174) 56(84) bytes of data.
+64 bytes from cerejeira.unicamp.br (143.106.10.174): icmp_seq=1 ttl=59 time=0.455 ms
+64 bytes from cerejeira.unicamp.br (143.106.10.174): icmp_seq=2 ttl=59 time=0.425 ms
+64 bytes from cerejeira.unicamp.br (143.106.10.174): icmp_seq=3 ttl=59 time=0.493 ms
+64 bytes from cerejeira.unicamp.br (143.106.10.174): icmp_seq=4 ttl=59 time=0.435 ms
+64 bytes from cerejeira.unicamp.br (143.106.10.174): icmp_seq=5 ttl=59 time=0.481 ms
+64 bytes from cerejeira.unicamp.br (143.106.10.174): icmp_seq=6 ttl=59 time=0.429 ms
+64 bytes from cerejeira.unicamp.br (143.106.10.174): icmp_seq=7 ttl=59 time=0.430 ms
+64 bytes from cerejeira.unicamp.br (143.106.10.174): icmp_seq=8 ttl=59 time=0.515 ms
+64 bytes from cerejeira.unicamp.br (143.106.10.174): icmp_seq=9 ttl=59 time=0.457 ms
+64 bytes from cerejeira.unicamp.br (143.106.10.174): icmp_seq=10 ttl=59 time=0.512 ms
+
+--- cerejeira.unicamp.br ping statistics ---
+10 packets transmitted, 10 received, 0% packet loss, time 9000ms
+rtt min/avg/max/mdev = 0.425/0.463/0.515/0.035 ms
+
+\end{verbatim}
+\paragraph{1.1} O parametro -c especifica quantos pacotes enviar, por
+padrão o programa continua até ser interrompido. Os tempos minimo, medio e máximo
+para cambridge foram 212.359ms, 219.129ms e 241.249ms respectivamente.
+\paragraph{1.2} Para a unicamp os tempos minimo, médio e máximo foram respectivamente
+0.425ms, 0.463ms e 0.515ms. Os tempos foram significativamente menores do que os testes
+para Cambridge, o que faz todo sentido considerando näo apenas a distancia geografica,
+mas também o numero de hops entre os hosts.
+\paragraph{1.3} O host em www.lrc.ic.unicamp.br não retorna echo
+requests, mas responde pela porta 80, indicando que o echo request
+foi desabilitado. Claramente o ping não pode ser usado como unica
+ferramente para verificar a disponibilidade de um host
+\section*{ifconfig}
+\begin{verbatim}
+enp0s25: flags=4099<UP,BROADCAST,MULTICAST>  mtu 1500
+        ether f0:de:f1:2a:4e:4d  txqueuelen 1000  (Ethernet)
+        RX packets 171822  bytes 152570338 (145.5 MiB)
+        RX errors 0  dropped 0  overruns 0  frame 0
+        TX packets 99996  bytes 17159648 (16.3 MiB)
+        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
+        device interrupt 20  memory 0xf2500000-f2520000  
+
+lo: flags=73<UP,LOOPBACK,RUNNING>  mtu 65536
+        inet 127.0.0.1  netmask 255.0.0.0
+        inet6 ::1  prefixlen 128  scopeid 0x10<host>
+        loop  txqueuelen 0  (Local Loopback)
+        RX packets 4580  bytes 478162 (466.9 KiB)
+        RX errors 0  dropped 0  overruns 0  frame 0
+        TX packets 4580  bytes 478162 (466.9 KiB)
+        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
+
+wlp2s0: flags=4163<UP,BROADCAST,RUNNING,MULTICAST>  mtu 1500
+        inet 177.220.85.121  netmask 255.255.254.0  broadcast 177.220.85.255
+        inet6 fe80::224:d7ff:fe6b:9a34  prefixlen 64  scopeid 0x20<link>
+        ether 00:24:d7:6b:9a:34  txqueuelen 1000  (Ethernet)
+        RX packets 48398  bytes 28091691 (26.7 MiB)
+        RX errors 0  dropped 0  overruns 0  frame 0
+        TX packets 15530  bytes 2598455 (2.4 MiB)
+        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
+
+\end{verbatim}
+\paragraph{2} O endereço IP  da minha estação de trabalho é
+177.220.85.121, ela possui duas interfaces de rede (enp6s0 e wlp2s0), além da interface de loopback. Desde o ultimo reboot a placa cabeada (enp6s0) enviou 17159648 bytes e recebeu 152570338 bytes, a placa wireless (wlp2s0) enviou 2598455 bytes e recebeu 28091691 bytes e a interface de loopback enviou 478162 bytes e (logicamente) recebeu o mesmo tanto.
+
+\begin{verbatim}
+
+lo: flags=73<UP,LOOPBACK,RUNNING>  mtu 65536
+        inet 127.0.0.1  netmask 255.0.0.0
+        inet6 ::1  prefixlen 128  scopeid 0x10<host>
+        loop  txqueuelen 0  (Local Loopback)
+        RX packets 4588  bytes 478834 (467.6 KiB)
+        RX errors 0  dropped 0  overruns 0  frame 0
+        TX packets 4588  bytes 478834 (466.9 KiB)
+        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
+\end{verbatim}
+\paragraph{3} A interface de loopback enviou (e recebeu) 4588 pacotes. Após executar ping -c 2 localhost temos a seguinte saida
+\begin{verbatim}
+lo: flags=73<UP,LOOPBACK,RUNNING>  mtu 65536
+        inet 127.0.0.1  netmask 255.0.0.0
+        inet6 ::1  prefixlen 128  scopeid 0x10<host>
+        loop  txqueuelen 0  (Local Loopback)
+        RX packets 4592  bytes 479170 (467.9 KiB)
+        RX errors 0  dropped 0  overruns 0  frame 0
+        TX packets 4592  bytes 479170 (467.9 KiB)
+        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
+\end{verbatim}
+\paragraph{} Ambas foram acrescidas em 4 pacotes, o que é o esperado, já que um ping envolve um cliente enviando um request e um servidor enviando uma resposta, como a interface é usada para ambas as tarefas é natural que a cada ping ambas TX e RX sejam acrecidas em 2, como fizemos ping -c 2, 4 pacotes. Conclusão, lo fala consigo mesma.
+\section*{route}
+\begin{verbatim}
+Kernel IP routing table
+Destination     Gateway         Genmask         Flags Metric Ref    Use Iface
+default         gateway         0.0.0.0         UG    600    0        0 wlp2s0
+177.220.84.0    *               255.255.254.0   U     600    0        0 wlp2s0
+\end{verbatim}
+\paragraph{4} Estão definidas duas rotas, uma para pacotes destinados a minha subrede (177.220.84.0) e uma para todos os outros (default). Por padrão os pacotes seguem pela interface wireless wlp2s0 (até porque a cabeada está desconectada)
+\section*{nslookup}
+Server:		143.106.2.5
+Address:	143.106.2.5\#53
+
+Non-authoritative answer:
+Name:	www.google.com
+Address: 173.194.119.18
+Name:	www.google.com
+Address: 173.194.119.20
+Name:	www.google.com
+Address: 173.194.119.17
+Name:	www.google.com
+Address: 173.194.119.19
+Name:	www.google.com
+Address: 173.194.119.16
+\paragraph{5.1} Esse comando foi um pouco pior de testar devido a
+cache, eventualmente obtive a resposta acima, o host www.google.com
+tem os ips 173.194.119.(16-20).
+\paragraph{} A maior vantagem de ter varios endereços ip associados a um
+host é aumentar a disponibilidade de um serviço, dando ao cliente mais
+opções caso um servidor falhe, além disso por meio de tecnicas de
+balanceamento de carga (eg. Roud-Robbing DNS) é possivel melhorar a
+performance do serviço dividindo os clientes entre varios servidores.
+\paragraph{} Minha estação está usando o host 143.106.2.5
+(ns.unicamp.br) como DNS.
+\paragraph{5.2} O endereço 127.0.0.1 é sempre associado a
+localhost, isso é, a própria maquina.
+\section*{traceroute}
+\begin{verbatim}
+traceroute to www.google.com (216.58.222.4), 30 hops max, 60 byte packets
+ 1  * * *
+ 2  143.106.16.150 (143.106.16.150)  0.092 ms  0.085 ms  0.073 ms
+ 3  143.106.7.129 (143.106.7.129)  0.372 ms  0.367 ms  0.357 ms
+ 4  area3-gw.unicamp.br (143.106.1.129)  0.515 ms  0.575 ms  0.701 ms
+ 5  ptp-ncc-nbs.unicamp.br (143.106.199.9)  24.414 ms ptp-nct-nbs.unicamp.br (143.106.199.13)  0.354 ms  0.419 ms
+ 6  as15169.sp.ix.br (187.16.216.55)  3.287 ms  3.238 ms  3.237 ms
+ 7  216.239.51.228 (216.239.51.228)  3.606 ms  3.520 ms  3.494 ms
+ 8  72.14.236.183 (72.14.236.183)  3.771 ms  3.749 ms  3.662 ms
+ 9  gru06s25-in-f4.1e100.net (216.58.222.4)  3.316 ms  3.523 ms  3.394 ms
+\end{verbatim}
+\paragraph{6.1} Existem 9 roteadores (para essa rota) entre a
+minha maquina e www.google.com, até o sexto ainda temos um br no
+nome, e o setimo ip já está localizado em Montain View - California
+\paragraph{6.2}
+\begin{verbatim}
+traceroute to www.cam.ac.uk (131.111.150.25), 30 hops max, 60 byte packets
+ 1  * * *
+ 2  143.106.16.150 (143.106.16.150)  0.115 ms  0.112 ms  0.100 ms
+ 3  143.106.7.129 (143.106.7.129)  0.172 ms  0.159 ms  0.148 ms
+ 4  area3-gw.unicamp.br (143.106.1.129)  0.461 ms  0.550 ms  0.667 ms
+ 5  ptp-nct-nbs.unicamp.br (143.106.199.13)  0.396 ms ptp-ncc-nbs.unicamp.br (143.106.199.9)  0.396 ms  0.370 ms
+ 6  * * *
+ 7  sp-sp2.bkb.rnp.br (200.143.253.37)  2.375 ms  2.369 ms  2.354 ms
+ 8  br-rnp.redclara.net (200.0.204.213)  3.600 ms  3.428 ms  3.469 ms
+ 9  redclara.lon.uk.geant.net (62.40.124.36)  202.729 ms  202.728 ms  202.690 ms
+10  janet-gw.mx1.lon.uk.geant.net (62.40.124.198)  202.549 ms  202.777 ms  202.770 ms
+11  ae28.lowdss-sbr1.ja.net (146.97.33.18)  205.893 ms  206.173 ms  206.245 ms
+12  ae26.lowdss-ban1.ja.net (146.97.35.246)  206.213 ms  206.136 ms  206.128 ms
+13  University-of-Cambridge.lowdss-ban1.ja.net (146.97.41.246)  217.530 ms  217.524 ms  215.467 ms
+14  b-ew.c-mi.net.cam.ac.uk (192.84.5.133)  208.334 ms  208.127 ms  208.195 ms
+15  route-mill.route-west.net.cam.ac.uk (192.84.5.98)  208.407 ms  208.474 ms  208.416 ms
+16  primary.admin.cam.ac.uk (131.111.150.25)  208.446 ms  208.415 ms  208.363 ms
+\end{verbatim}
+\paragraph{6.2} Existem 16 roteadores nessa rota entre minha
+maquina e www.cam.ac.uk, até o quinto roteador a rota é a mesma,
+o que é bem logico já que é dentro da rede da Unicamp
+\begin{verbatim}
+traceroute to home.pl (212.85.96.1), 30 hops max, 60 byte packets
+ 1  * * *
+ 2  143.106.16.150 (143.106.16.150)  0.101 ms  0.095 ms  0.084 ms
+ 3  143.106.7.129 (143.106.7.129)  0.337 ms  0.332 ms  0.341 ms
+ 4  area3-gw.unicamp.br (143.106.1.129)  0.497 ms  0.689 ms  0.744 ms
+ 5  ptp-nct-nbs.unicamp.br (143.106.199.13)  0.435 ms  0.437 ms ptp-ncc-nbs.unicamp.br (143.106.199.9)  0.410 ms
+ 6  * * *
+ 7  sp-sp2.bkb.rnp.br (200.143.253.37)  2.364 ms  2.348 ms  2.338 ms
+ 8  mia2-sp-par-pac.bkb.rnp.br (200.143.252.34)  155.320 ms  155.324 ms mia2-sp-tws.bkb.rnp.br (200.143.252.22)  155.989 ms
+ 9  mia1-mia2.bkb.rnp.br (200.143.252.25)  157.509 ms  156.088 ms  156.011 ms
+10  xe-9-3-2.edge2.Miami2.Level3.net (4.59.242.41)  156.742 ms  156.866 ms  156.730 ms
+11  ae-1-9.bar1.Warsaw1.Level3.net (4.69.153.70)  296.796 ms  296.879 ms  297.160 ms
+12  ae-1-9.bar1.Warsaw1.Level3.net (4.69.153.70)  296.549 ms  297.698 ms  297.633 ms
+13  LWLcom-Bremen.level3.net (213.242.117.58)  297.634 ms  297.199 ms  297.225 ms
+14  * * *
+15  * * *
+16  * * *
+\end{verbatim}
+\paragraph{6.3} O host home.pl foi o mais complicado de atingir com traceroute, os ultimos
+roteadores sempre falham, mas consegui os endereços dos primeiros 13 roteadores.
+A rota de retorno que ele consegue é:
+\begin{verbatim}
+HOST: vmy1.home.net.pl            Loss%   Snt   Last   Avg  Best  Wrst StDev
+  1.|-- adx01.home.net.pl          0.0%     5    0.4   0.4   0.3   0.4   0.0
+  2.|-- 62.129.251.154             0.0%     5    0.2  14.5   0.2  71.4  31.8
+  3.|-- dialup-212.162.18.57.fran  0.0%     5    0.6  11.4   0.6  54.5  24.1
+  4.|-- ae-2-52.edge2.Miami2.Leve 80.0%     5  140.6 140.6 140.6 140.6   0.0
+  5.|-- ae-2-52.edge2.Miami2.Leve 60.0%     5  140.6 140.6 140.6 140.6   0.0
+  6.|-- LATIN-AMERI.edge2.Miami2.  0.0%     5  140.4 145.4 140.4 165.5  11.2
+  7.|-- mia2-mia1.bkb.rnp.br       0.0%     5  140.5 140.5 140.5 140.5   0.0
+  8.|-- sp-mia2-par-pac.bkb.rnp.b  0.0%     5  304.8 304.8 304.8 304.8   0.0
+  9.|-- sp2-sp.bkb.rnp.br          0.0%     5  304.4 305.6 304.4 310.3   2.7
+ 10.|-- rnp-nct.unicamp.br         0.0%     5  296.4 296.4 296.4 296.4   0.0
+ 11.|-- ptp-nbs-nct.unicamp.br    20.0%     5  295.5 295.5 295.4 295.5   0.0
+ 12.|-- ic-gw.unicamp.br          20.0%     5  296.5 296.5 296.5 296.5   0.0
+ 13.|-- ic3-gw.ic.unicamp.br      20.0%     5  296.9 296.8 296.7 296.9   0.1
+ 14.|-- xaveco.lab.ic.unicamp.br  20.0%     5  296.9 296.9 296.7 297.2   0.2
+\end{verbatim}
+ \paragraph{} Os caminhos de volta se relacionam na ponta proxima a Unicamp, nos servidores
+ da própria (1 a 5 e provavelmente 6 da ida), e nos da RNP (7 a 9 da ida), é normal haver
+ divergencias nessas rotas.
+ 
+\section*{netstat}
+\begin{verbatim}
+Active Internet connections (w/o servers)
+Proto Recv-Q Send-Q Local Address           Foreign Address         State      
+tcp        0      0 x201:53068              cerejeira.unic:www-http ESTABLISHED
+tcp        0      0 x201:54104              ec2-52-5-60-70:www-http ESTABLISHED
+tcp        0      0 x201:57505              ec2-52-2-147-2:www-http ESTABLISHED
+tcp        0      0 localhost.localdo:46940 localhost.localdo:43664 ESTABLISHED
+tcp        0      0 x201:43593              ce-in-f189.1e100.:https ESTABLISHED
+tcp        0      0 x201:53069              cerejeira.unic:www-http ESTABLISHED
+tcp        0      0 x201:53067              cerejeira.unic:www-http ESTABLISHED
+tcp        0      0 x201:57525              ec2-52-2-147-2:www-http ESTABLISHED
+tcp        0      0 x201:53070              cerejeira.unic:www-http ESTABLISHED
+tcp        0      0 x201:53073              cerejeira.unic:www-http ESTABLISHED
+tcp        0      0 x201:53065              cerejeira.unic:www-http ESTABLISHED
+tcp        0      0 x201:53795              ec2-54-209-59-:www-http ESTABLISHED
+tcp        0      0 x201:54102              ec2-52-5-60-70:www-http ESTABLISHED
+tcp        0      0 x201:57517              ec2-52-2-147-2:www-http ESTABLISHED
+tcp        0      0 x201:53774              ec2-54-209-59-:www-http ESTABLISHED
+tcp        0      0 localhost.localdo:46941 localhost.localdo:43664 ESTABLISHED
+tcp        0      0 x201:53071              cerejeira.unic:www-http ESTABLISHED
+tcp        0      0 x201:41302              stackoverflow.:www-http ESTABLISHED
+tcp        0      0 x201:53796              ec2-54-209-59-:www-http ESTABLISHED
+tcp        0      0 x201:53782              ec2-54-209-59-:www-http ESTABLISHED
+tcp        0      0 localhost.localdo:43664 localhost.localdo:46940 ESTABLISHED
+tcp        0      0 localhost.localdo:43664 localhost.localdo:46941 ESTABLISHED
+tcp        0      0 x201:53072              cerejeira.unic:www-http ESTABLISHED
+tcp        0      0 x201:54082              ec2-52-5-60-70:www-http ESTABLISHED
+tcp6       1      0 localhost.localdo:34697 localhost.localdoma:ipp CLOSE_WAIT 
+tcp6       1      0 localhost.localdo:34698 localhost.localdoma:ipp CLOSE_WAIT 
+
+\end{verbatim}
+\paragraph{7.1} O site www.unicamp.br aparentemente está hospedado no host cerejeira.unicamp.br, como
+esperado na porta 80, e permite conexões paralelas.
+\paragraph{7.2} Existem várias conexões além das para a Unicamp, a maioria para ec2-52-5-60-70:www-http
+(Um dominio da Amazon EC2), muitas para localhost (loopback) e uma para stackoverflow. As conexões para
+localhost usam portas variadas na casa dos 40000 (mais duas para a 631 do cups), enquando as outras
+todas se concentram em http (80) e https (443)
+\paragraph{7.3} As portas locais usadas são todas portas altas na casa do 53000.
+
+\section*{telnet}
+\paragraph{8.1} Sim, é possivel contatar qualquer serviço TCP através do protocolo telnet e boa parte
+deles pode ser usada manualmente (serviços que exigem criptografia podem ser mais complicados nessa
+parte), o google por exemplo pode ser acessado usando telnet www.google.com 80 e enviando comandos
+HTTP (copiei do firefox)
+\begin{verbatim}
+telnet www.google.com 80
+Connected to www.google.com.
+Escape character is '^]'.
+
+GET / HTTP/1.1
+Host: www.google.com
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:40.0) Gecko/20100101 Firefox/40.0
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8
+Accept-Language: en-US,en;q=0.5
+Accept-Encoding: gzip, deflate
+Connection: keep-alive
+
+
+HTTP/1.1 301 Moved Permanently
+Location: http://www.google.com:1234/
+Content-Type: text/html; charset=UTF-8
+Date: Tue, 25 Aug 2015 16:04:18 GMT
+Expires: Thu, 24 Sep 2015 16:04:18 GMT
+Cache-Control: public, max-age=2592000
+Server: gws
+Content-Length: 224
+X-XSS-Protection: 1; mode=block
+X-Frame-Options: SAMEORIGIN
+
+<HTML><HEAD><meta http-equiv="content-type" content="text/html;charset=utf-8">
+<TITLE>301 Moved</TITLE></HEAD><BODY>
+<H1>301 Moved</H1>
+The document has moved
+<A HREF="http://www.google.com:1234/">here</A>.
+</BODY></HTML>
+GET / HTTP/1.1
+
+\end {verbatim}
+\paragraph{8.2} Caso não haja um serviço rodando na porta que o telnet tenta se conectar a
+saida do comando se parece com a seguinte:
+\begin{verbatim}
+telnet 127.0.0.1 80
+Trying 127.0.0.1...
+telnet: Unable to connect to remote host: Connection refused
+\end{verbatim}
+/paragraph{} Ou, se houver um filtro de pacotes barrando as tentativas de conexão:
+\begin{verbatim}
+telnet www.google.com 81                                      
+Trying 173.194.42.180...
+Connection failed: Connection timed out
+\end{verbatim}
+\paragraph{} Para que telnet localhost 80 funcionasse eu precisaria iniciar um servidor qualquer
+e configurar o mesmo para escutar na porta 80, tradicionalmente eu deveria usar um servidor HTTP.
+\end{document}
