@@ -1,0 +1,117 @@
+OfflineIMAP 6.5.7
+  Licensed under the GNU GPL v2 or any later version (with an OpenSSL exception)
+Account sync private:
+ *** Processing account private
+ Calling hook: ~/.offlineimap/presync.sh
+Account sync gmail:
+ *** Processing account gmail
+ Establishing connection to imap.gmail.com:993
+Folder [Gmail]/Drafts [acc: gmail]:
+ Syncing [Gmail]/Drafts: Gmail -> GmailMaildir
+Folder [Gmail]/All Mail [acc: gmail]:
+ Syncing [Gmail]/All Mail: Gmail -> GmailMaildir
+Folder [Gmail]/Sent Mail [acc: gmail]:
+ Syncing [Gmail]/Sent Mail: Gmail -> GmailMaildir
+Account sync private:
+ Hook stdout: 
+Hook stderr:/home/gabriel/.offlineimap/presync.sh:2: permission denied: /sys/devices/platform/thinkpad_acpi/leds/tpacpi::standby/brightness
+
+
+ Hook return code: 0
+ Establishing connection to mail.hidasy.xyz:993
+Folder Archive [acc: private]:
+ Syncing Archive: IMAP -> Maildir
+Folder arch-general [acc: private]:
+ Syncing arch-general: IMAP -> Maildir
+Folder Drafts [acc: private]:
+ Syncing Drafts: IMAP -> Maildir
+Folder Eudyptula [acc: private]:
+ Syncing Eudyptula: IMAP -> Maildir
+Folder [Gmail]/All Mail [acc: gmail]:
+ Copy message 150218 (1 of 9) remote_gmail:[Gmail]/All Mail -> local_gmail
+Folder INBOX [acc: private]:
+ Syncing INBOX: IMAP -> Maildir
+Folder Lixeira [acc: private]:
+ Syncing Lixeira: IMAP -> Maildir
+Folder [Gmail]/All Mail [acc: gmail]:
+ Copy message 150219 (2 of 9) remote_gmail:[Gmail]/All Mail -> local_gmail
+Folder [Gmail]/Sent Mail [acc: gmail]:
+ Copy message 5184 (1 of 1) remote_gmail:[Gmail]/Sent Mail -> local_gmail
+Folder propaganda [acc: private]:
+ Syncing propaganda: IMAP -> Maildir
+Folder Sent [acc: private]:
+ Syncing Sent: IMAP -> Maildir
+Folder Templates [acc: private]:
+ Syncing Templates: IMAP -> Maildir
+Folder Trash [acc: private]:
+ Syncing Trash: IMAP -> Maildir
+Account sync private:
+ Calling hook: ~/.offlineimap/postsync.sh
+Folder [Gmail]/All Mail [acc: gmail]:
+ Copy message 150221 (3 of 9) remote_gmail:[Gmail]/All Mail -> local_gmail
+ Copy message 150222 (4 of 9) remote_gmail:[Gmail]/All Mail -> local_gmail
+Folder [Gmail]/Sent Mail [acc: gmail]:
+ Copy message -1 (1 of 1) local_gmail:[Gmail].Sent Mail -> remote_gmail
+Folder [Gmail]/All Mail [acc: gmail]:
+ Copy message 150224 (5 of 9) remote_gmail:[Gmail]/All Mail -> local_gmail
+Folder [Gmail]/Spam [acc: gmail]:
+ Syncing [Gmail]/Spam: Gmail -> GmailMaildir
+Folder [Gmail]/All Mail [acc: gmail]:
+ Copy message 150225 (6 of 9) remote_gmail:[Gmail]/All Mail -> local_gmail
+ Copy message 150220 (7 of 9) remote_gmail:[Gmail]/All Mail -> local_gmail
+Folder [Gmail]/Starred [acc: gmail]:
+ Syncing [Gmail]/Starred: Gmail -> GmailMaildir
+Folder [Gmail]/All Mail [acc: gmail]:
+ Copy message 150223 (8 of 9) remote_gmail:[Gmail]/All Mail -> local_gmail
+ Copy message 150226 (9 of 9) remote_gmail:[Gmail]/All Mail -> local_gmail
+Folder [Gmail]/Trash [acc: gmail]:
+ Syncing [Gmail]/Trash: Gmail -> GmailMaildir
+ Deleting 1 messages (54016) in GmailMaildir[[Gmail].Trash]
+ Deleting flag S from 1 messages on [Gmail].Trash
+Folder comercio [acc: gmail]:
+ Syncing comercio: Gmail -> GmailMaildir
+Folder [Gmail]/All Mail [acc: gmail]:
+ Deleting 55 messages (149654,149917,149922:149923,149928:149929,149931:149933,149935,149940,149943,149946,149971,149977,149987,150003:150004,150016:150018,150020:150023,150029:150030,150033:150034,150042:150043,150045:150050,150054,150078,150095,150097,150102,150105,150107,150109,150112,150122,150125,150152,150192,150198:150200,150202:150203) in GmailMaildir[[Gmail].All Mail]
+ Adding flag R to 1 messages on [Gmail].All Mail
+Folder Coursera [acc: gmail]:
+ Syncing Coursera: Gmail -> GmailMaildir
+Folder comercio [acc: gmail]:
+ Copy message 3174 (1 of 1) remote_gmail:comercio -> local_gmail
+Folder CsF [acc: gmail]:
+ Syncing CsF: Gmail -> GmailMaildir
+Folder comercio [acc: gmail]:
+ Deleting 11 messages (3160:3169,3173) in GmailMaildir[comercio]
+Folder Deutsch [acc: gmail]:
+ Syncing Deutsch: Gmail -> GmailMaildir
+Folder empiricus [acc: gmail]:
+ Syncing empiricus: Gmail -> GmailMaildir
+Folder familia [acc: gmail]:
+ Syncing familia: Gmail -> GmailMaildir
+Folder formatura [acc: gmail]:
+ Syncing formatura: Gmail -> GmailMaildir
+Folder INBOX [acc: gmail]:
+ Syncing INBOX: Gmail -> GmailMaildir
+Folder propaganda [acc: gmail]:
+ Syncing propaganda: Gmail -> GmailMaildir
+Folder INBOX [acc: gmail]:
+ Copy message 50489 (1 of 7) remote_gmail:INBOX -> local_gmail
+ Copy message 50492 (2 of 7) remote_gmail:INBOX -> local_gmail
+Account sync private:
+ Hook stdout: Processed 83 total files in 1s (41 files/sec.).[K
+Added 11 new messages to the database. Detected 60 file renames.
+
+Hook stderr:/home/gabriel/.offlineimap/postsync.sh:8: permission denied: /sys/devices/platform/thinkpad_acpi/leds/tpacpi::power/brightness
+zsh:1: permission denied: /sys/devices/platform/thinkpad_acpi/leds/tpacpi::standby/brightness
+
+
+ Hook return code: 0
+ *** Finished account 'private' in 0:57
+Folder INBOX [acc: gmail]:
+ Copy message 50494 (3 of 7) remote_gmail:INBOX -> local_gmail
+ Copy message 50495 (4 of 7) remote_gmail:INBOX -> local_gmail
+ Copy message 50491 (5 of 7) remote_gmail:INBOX -> local_gmail
+ Copy message 50493 (6 of 7) remote_gmail:INBOX -> local_gmail
+ Copy message 50490 (7 of 7) remote_gmail:INBOX -> local_gmail
+ Adding flag S to 1 messages on INBOX
+Account sync gmail:
+ *** Finished account 'gmail' in 1:00
