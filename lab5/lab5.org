@@ -66,3 +66,9 @@ Usando o tcpdump chequei o trafego passando pelo meu notebook, mais
 especificamente com o comando ==sudo tcpdump -A | grep Mon, e a cada
 requisição do cliente o tcpdump registrava mais um pacote com a data
 de hoje sendo enviada
+
+# Questão 5
+No código
+
+# Questão 6
+
