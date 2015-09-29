@@ -1,0 +1,285 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<title>Atividade 4 - Máquina de estados Finitos do Protocolo TCP</title>
+<!-- 2015-09-15 Tue 00:09 -->
+<meta  http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta  name="generator" content="Org-mode" />
+<meta  name="author" content="Gabriel Hidasy Rezende" />
+<style type="text/css">
+ <!--/*--><![CDATA[/*><!--*/
+  .title  { text-align: center; }
+  .todo   { font-family: monospace; color: red; }
+  .done   { color: green; }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
+  pre {
+    border: 1px solid #ccc;
+    box-shadow: 3px 3px 3px #eee;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
+  }
+  pre.src {
+    position: relative;
+    overflow: visible;
+    padding-top: 1.2em;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    background-color: white;
+    top: -10px;
+    right: 10px;
+    padding: 3px;
+    border: 1px solid black;
+  }
+  pre.src:hover:before { display: inline;}
+  pre.src-sh:before    { content: 'sh'; }
+  pre.src-bash:before  { content: 'sh'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-R:before     { content: 'R'; }
+  pre.src-perl:before  { content: 'Perl'; }
+  pre.src-java:before  { content: 'Java'; }
+  pre.src-sql:before   { content: 'SQL'; }
+
+  table { border-collapse:collapse; }
+  caption.t-above { caption-side: top; }
+  caption.t-bottom { caption-side: bottom; }
+  td, th { vertical-align:top;  }
+  th.right  { text-align: center;  }
+  th.left   { text-align: center;   }
+  th.center { text-align: center; }
+  td.right  { text-align: right;  }
+  td.left   { text-align: left;   }
+  td.center { text-align: center; }
+  dt { font-weight: bold; }
+  .footpara:nth-child(2) { display: inline; }
+  .footpara { display: block; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
+    background: #ffffcc;
+  }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
+  /*]]>*/-->
+</style>
+<script type="text/javascript">
+/*
+@licstart  The following is the entire license notice for the
+JavaScript code in this tag.
+
+Copyright (C) 2012-2013 Free Software Foundation, Inc.
+
+The JavaScript code in this tag is free software: you can
+redistribute it and/or modify it under the terms of the GNU
+General Public License (GNU GPL) as published by the Free Software
+Foundation, either version 3 of the License, or (at your option)
+any later version.  The code is distributed WITHOUT ANY WARRANTY;
+without even the implied warranty of MERCHANTABILITY or FITNESS
+FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
+
+As additional permission under GNU GPL version 3 section 7, you
+may distribute non-source (e.g., minimized or compacted) forms of
+that code without the copy of the GNU GPL normally required by
+section 4, provided you include this license notice and a URL
+through which recipients can access the Corresponding Source.
+
+
+@licend  The above is the entire license notice
+for the JavaScript code in this tag.
+*/
+<!--/*--><![CDATA[/*><!--*/
+ function CodeHighlightOn(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(null != target) {
+     elem.cacheClassElem = elem.className;
+     elem.cacheClassTarget = target.className;
+     target.className = "code-highlighted";
+     elem.className   = "code-highlighted";
+   }
+ }
+ function CodeHighlightOff(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(elem.cacheClassElem)
+     elem.className = elem.cacheClassElem;
+   if(elem.cacheClassTarget)
+     target.className = elem.cacheClassTarget;
+ }
+/*]]>*///-->
+</script>
+</head>
+<body>
+<div id="content">
+<h1 class="title">Atividade 4 - Máquina de estados Finitos do Protocolo TCP</h1>
+<p>
+Objetivo: Estudar uma implementação real da máquina de estados finitos do protocolo TCP.
+</p>
+
+<div id="outline-container-sec-1" class="outline-2">
+<h2 id="sec-1"><span class="section-number-2">1</span> Questão 1:</h2>
+<div class="outline-text-2" id="text-1">
+<p>
+Analise o arquivo <code>tcp_states.h</code> e verifique os estados
+disponiveis. Estão inclusos todos os estados descritos
+anteriormente?
+</p>
+
+<p>
+Logo no inicio do arquivo temos um enum com os estados
+disponiveis, segue anexa:
+</p>
+<div class="org-src-container">
+
+<pre class="src src-states">enum { TCP_ESTABLISHED = 1, 
+       TCP_SYN_SENT, 
+	TCP_SYN_RECV,
+	TCP_FIN_WAIT1, 
+	TCP_FIN_WAIT2, 
+	TCP_TIME_WAIT, 
+	TCP_CLOSE,
+	TCP_CLOSE_WAIT, 
+	TCP_LAST_ACK,  
+	TCP_LISTEN, 
+	TCP_CLOSING, /*Now a valid state */ 
+	TCP_MAX_STATES /* Leave at the end!*/ 
+};
+</pre>
+</div>
+<p>
+Obviamente não vemos o estado CLOSED, que já era descrito como
+fictício. Todos os outros estados estão presentes e ainda temos o
+estado CLOSE que não está na tabela, mas é equivalente ao closed
+logo após o fechamento (é o estado da estrutura logo antes da
+limpeza).
+</p>
+</div>
+</div>
+
+<div id="outline-container-sec-2" class="outline-2">
+<h2 id="sec-2"><span class="section-number-2">2</span> Questão 2:</h2>
+<div class="outline-text-2" id="text-2">
+<p>
+Identifique três funções envolvidas no processo de fechamento de
+uma conexão TCP tanto do lado cliente como do lado
+servidor. Suponha que o fechamento é inicializado pelo cliente
+com o envio de uma mensagem FIN para o servidor após ter acabado
+a transmissão de todos os pacotes de uma sessão. Descreva o papel
+da função no processo.
+</p>
+
+<p>
+No arquivo <code>tcp_output.c</code> temos a função <code>tcp_send_fin</code> que tem um
+nome auto-explicativo, ela é responsavel por enviar os pacotes
+FIN, ela também é responsavel por enviar os pacotes restantes no
+buffer, o cliente chamaria ela para iniciar o processo de
+finalizar a transmissão (<code>__tcp_push_pending_frames</code> com um FIN)
+</p>
+
+<p>
+No arquivo <code>tcp_input.c</code> temos a função <code>tcp_fin</code> que é responsavel
+por tratar o recebimento de um FIN, limpar a memoria usada pela
+estutura sk e levar a maquina de estados para um dos estados de
+encerramento.
+</p>
+
+<p>
+E temos em <code>tcp.c</code> a função <code>tcp_close</code> é usada para iniciar o
+processo de finalização de uma conexão.
+</p>
+</div>
+</div>
+
+<div id="outline-container-sec-3" class="outline-2">
+<h2 id="sec-3"><span class="section-number-2">3</span> Questão 3</h2>
+<div class="outline-text-2" id="text-3">
+<p>
+Escolha 2 funções nos arquivos <code>tcp.c</code>, <code>tcp_input.c</code> ou
+<code>tcp_output.c</code> que trabalhem diretamente com o estado do TCP. Pelo
+menos uma das funções deve mudar o estado dentro da função. Crie
+um relatório explicando a implementação das funções escolhidas.
+</p>
+</div>
+
+<div id="outline-container-sec-3-1" class="outline-3">
+<h3 id="sec-3-1"><span class="section-number-3">3.1</span> <code>tcp_set_state</code> do arquivo tcp.c</h3>
+<div class="outline-text-3" id="text-3-1">
+<p>
+Como o proprio nome diz, essa função é reponsavel por
+efetivamente modificar o estado da maquina de estados do TCP, com
+algum tratamente (e coleta de estatisticas) dependendo das
+transições requeridas (por exemplo, uma mudança para CLOSE leva o
+socket a ser removido da tabela de sockets, enquanto uma mudança
+de ESTABILISHED para ESTABILISHED apenas contabiliza estatisticas.
+</p>
+</div>
+</div>
+
+<div id="outline-container-sec-3-2" class="outline-3">
+<h3 id="sec-3-2"><span class="section-number-3">3.2</span> <code>tcp_fin</code> do <code>tcp_input.c</code></h3>
+<div class="outline-text-3" id="text-3-2">
+<p>
+Essa função, já vista na questão 2, é responsavel por tratar o
+recebimento de pacotes com a flah FIN.
+Ela aje sobre a maquina de estados da seguinte forma:
+</p>
+
+<ul class="org-ul">
+<li>se estava <code>ESTABILISHED</code> ou <code>SYN_RECV</code> vai para <code>CLOSE_WAIT</code>
+</li>
+
+<li>se estava em <code>CLOSE_WAIT</code> ou <code>CLOSING</code> assume que é
+retransmissão do <code>FIN</code> e não faz nada
+</li>
+
+<li>se estava em <code>LAST_ACK</code> não faz nada de acordo com a RFC793
+</li>
+
+<li>se estava em <code>FIN_WAIT1</code> enviar um <code>ACK</code> pelo <code>FIN</code> e vai para <code>CLOSING</code>
+</li>
+
+<li>se estava em <code>FIN_WAIT2</code> enviar um <code>ACK</code> e entrar em <code>TIME_WAIT</code>.
+</li>
+</ul>
+
+<p>
+Em seguida ela programa o shutdown do socket e termina
+</p>
+</div>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<p class="author">Author: Gabriel Hidasy Rezende</p>
+<p class="date">Created: 2015-09-15 Tue 00:09</p>
+<p class="creator"><a href="http://www.gnu.org/software/emacs/">Emacs</a> 24.5.1 (<a href="http://orgmode.org">Org</a> mode 8.2.10)</p>
+<p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
+</div>
+</body>
+</html>

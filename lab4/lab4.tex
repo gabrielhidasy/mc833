@@ -1,0 +1,123 @@
+% Created 2015-09-20 Sun 22:33
+\documentclass[11pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{fixltx2e}
+\usepackage{graphicx}
+\usepackage{longtable}
+\usepackage{float}
+\usepackage{wrapfig}
+\usepackage{rotating}
+\usepackage[normalem]{ulem}
+\usepackage{amsmath}
+\usepackage{textcomp}
+\usepackage{marvosym}
+\usepackage{wasysym}
+\usepackage{amssymb}
+\usepackage{hyperref}
+\tolerance=1000
+\author{Gabriel Hidasy Rezende}
+\date{\today}
+\title{Atividade 4 - Máquina de estados Finitos do Protocolo TCP}
+\hypersetup{
+  pdfkeywords={},
+  pdfsubject={},
+  pdfcreator={Emacs 24.5.1 (Org mode 8.2.10)}}
+\begin{document}
+
+\maketitle
+Objetivo: Estudar uma implementação real da máquina de estados finitos do protocolo TCP.
+
+\section{Questão 1:}
+\label{sec-1}
+Analise o arquivo \texttt{tcp\_states.h} e verifique os estados
+disponiveis. Estão inclusos todos os estados descritos
+anteriormente?
+
+Logo no inicio do arquivo temos um enum com os estados
+disponiveis, segue anexa:
+\begin{verbatim}
+enum { TCP_ESTABLISHED = 1, 
+       TCP_SYN_SENT, 
+	TCP_SYN_RECV,
+	TCP_FIN_WAIT1, 
+	TCP_FIN_WAIT2, 
+	TCP_TIME_WAIT, 
+	TCP_CLOSE,
+	TCP_CLOSE_WAIT, 
+	TCP_LAST_ACK,  
+	TCP_LISTEN, 
+	TCP_CLOSING, /*Now a valid state */ 
+	TCP_MAX_STATES /* Leave at the end!*/ 
+};
+\end{verbatim}
+Obviamente não vemos o estado CLOSED, que já era descrito como
+fictício. Todos os outros estados estão presentes e ainda temos o
+estado CLOSE que não está na tabela, mas é equivalente ao closed
+logo após o fechamento (é o estado da estrutura logo antes da
+limpeza).
+
+\section{Questão 2:}
+\label{sec-2}
+Identifique três funções envolvidas no processo de fechamento de
+uma conexão TCP tanto do lado cliente como do lado
+servidor. Suponha que o fechamento é inicializado pelo cliente
+com o envio de uma mensagem FIN para o servidor após ter acabado
+a transmissão de todos os pacotes de uma sessão. Descreva o papel
+da função no processo.
+
+No arquivo \texttt{tcp\_output.c} temos a função \texttt{tcp\_send\_fin} que tem um
+nome auto-explicativo, ela é responsavel por enviar os pacotes
+FIN, ela também é responsavel por enviar os pacotes restantes no
+buffer, o cliente chamaria ela para iniciar o processo de
+finalizar a transmissão (\texttt{\_\_tcp\_push\_pending\_frames} com um FIN)
+
+No arquivo \texttt{tcp\_input.c} temos a função \texttt{tcp\_fin} que é responsavel
+por tratar o recebimento de um FIN, limpar a memoria usada pela
+estutura sk e levar a maquina de estados para um dos estados de
+encerramento.
+
+E temos em \texttt{tcp.c} a função \texttt{tcp\_close} é usada para iniciar o
+processo de finalização de uma conexão.
+
+\section{Questão 3}
+\label{sec-3}
+Escolha 2 funções nos arquivos \texttt{tcp.c}, \texttt{tcp\_input.c} ou
+\texttt{tcp\_output.c} que trabalhem diretamente com o estado do TCP. Pelo
+menos uma das funções deve mudar o estado dentro da função. Crie
+um relatório explicando a implementação das funções escolhidas.
+
+\subsection{\texttt{tcp\_set\_state} do arquivo tcp.c}
+\label{sec-3-1}
+Como o proprio nome diz, essa função é reponsavel por
+efetivamente modificar o estado da maquina de estados do TCP, com
+algum tratamente (e coleta de estatisticas) dependendo das
+transições requeridas.
+Ela é estraturada como um grande switch do estado atual, uma
+implementação comum para maquinas de estado (por exemplo, uma mudança
+para CLOSE leva o socket a ser removido da tabela de sockets, enquanto
+uma mudança de ESTABILISHED para ESTABILISHED apenas contabiliza
+estatisticas.
+
+\subsection{\texttt{tcp\_fin} do \texttt{tcp\_input.c}}
+\label{sec-3-2}
+Essa função, já vista na questão 2, é responsavel por tratar o
+recebimento de pacotes com a flag FIN.
+Ela aje sobre a maquina de estados da seguinte forma:
+
+\begin{itemize}
+\item se estava \texttt{ESTABILISHED} ou \texttt{SYN\_RECV} vai para \texttt{CLOSE\_WAIT}
+
+\item se estava em \texttt{CLOSE\_WAIT} ou \texttt{CLOSING} assume que é
+retransmissão do \texttt{FIN} e não faz nada
+
+\item se estava em \texttt{LAST\_ACK} não faz nada de acordo com a RFC793
+
+\item se estava em \texttt{FIN\_WAIT1} enviar um \texttt{ACK} pelo \texttt{FIN} e vai para \texttt{CLOSING}
+
+\item se estava em \texttt{FIN\_WAIT2} enviar um \texttt{ACK} e entrar em \texttt{TIME\_WAIT}.
+\end{itemize}
+
+Em seguida ela programa o shutdown do socket e termina
+% Emacs 24.5.1 (Org mode 8.2.10)
+\end{document}
