@@ -45,6 +45,10 @@ int main (int argc, char **argv) {
       }
 
       ticks = time(NULL);
+      struct sockaddr_in remote;
+      int len = sizeof(remote);
+      getpeername(connfd, (struct sockaddr *) &remote, &len);
+      printf("Remote socket %s\n",inet_ntoa(remote.sin_addr));
       snprintf(buf, sizeof(buf), "%.24s\r\n", ctime(&ticks));
       write(connfd, buf, strlen(buf));
 

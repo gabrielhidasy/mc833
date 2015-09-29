@@ -54,5 +54,21 @@ Obviamente nesse caso precisamos modificar o cliente para que ele se
 conecte na porta correta.
 Feitas as modificações e executando ambos os comandos na mesma
 maquina, e passando o endereço local para o cliente (./cliente
-127.0.0.1), temos como saida a data e hora de h 
-  Mon Sep 28 22:20:53 2015
+127.0.0.1), temos como saida a data e hora de hoje (Mon Sep 28
+22:20:53 2015). O servidor não imprime nada
+
+Executando em maquinas diferentes tive o mesmo resultado, só precisei
+usar o ip da outra maquina (./cliente 177.220.85.187). (Na outra
+maquina pude user a porta 13)
+
+# Questão 4
+Usando o tcpdump chequei o trafego passando pelo meu notebook, mais
+especificamente com o comando ==sudo tcpdump -A | grep Mon, e a cada
+requisição do cliente o tcpdump registrava mais um pacote com a data
+de hoje sendo enviada
+
+# Questão 5
+No código
+
+# Questão 6
+

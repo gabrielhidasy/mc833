@@ -43,7 +43,10 @@ int main(int argc, char **argv) {
       perror("connect error");
       exit(1);
    }
-
+   struct sockaddr_in sockname;
+   getsockname(sockfd, (struct sockaddr *) &sockname, (socklen_t *) sizeof(sockname));
+   printf("local IP is %s\n",inet_ntoa(sockname.sin_addr));
+   
    while ( (n = read(sockfd, recvline, MAXLINE)) > 0) {
       recvline[n] = 0;
       if (fputs(recvline, stdout) == EOF) {
