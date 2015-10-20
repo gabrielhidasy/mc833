@@ -9,47 +9,10 @@
 #include <time.h>
 #include <unistd.h>
 #include <arpa/inet.h>
+#include "netutils.h"
 
 #define LISTENQ 10
-#define MAXDATASIZE 1024
-
-int Socket(int family, int type, int flags)
-{
-  int sockfd;
-  if ((sockfd = socket(family, type, flags)) < 0) {
-    perror("socket");
-    exit(1);
-  } else
-    return sockfd;
-}
-void Bind(int sockfd, struct sockaddr_in servaddr)
-{
-  if (bind(sockfd, (struct sockaddr *)
-	   &servaddr, sizeof(servaddr)) == -1) {
-    perror("bind");
-    exit(1);
-  }
-}
-
-void Listen(int listenfd, int flags)
-{
-  if (listen(listenfd, flags) == -1) {
-      perror("listen");
-      exit(1);
-   }
-}
-
-int Accept(int listenfd, struct sockaddr_in *client)
-{
-  int connfd;
-  socklen_t client_size = sizeof(*client);
-  if ((connfd = accept(listenfd, (struct sockaddr *) client, &client_size)) == -1 ) {
-         perror("accept");
-         exit(1);
-      }
-  return connfd;
-}
-
+#define MAXDATASIZE 4096
 
 int main (int argc, char **argv)
 {
@@ -76,7 +39,7 @@ int main (int argc, char **argv)
 
    for ( ; ; ) {
      struct sockaddr_in client;
-     connfd = Accept(listenfd,client);
+     connfd = Accept(listenfd,&client);
      
      char client_address[128];
      int client_port = ntohs(client.sin_port);
@@ -86,18 +49,17 @@ int main (int argc, char **argv)
       int chid = fork();
       if (chid == 0) {
 	
-	char command[1025];
+	char command[MAXDATASIZE];
 	int n;
 	while(1) {
-	  n = read(connfd,command,1024);
-	  printf("%d\n",n);
-	  if (n==0) {
+	  n = Read(connfd,command,MAXDATASIZE-1);
+	  if (n == 0) {
 	    break;
 	  }
 	  command[n] = 0;
 	  //Thats a security flaw, try to chroot this server
 	  system(command);
-	  write(connfd, command, n);
+	  Write(connfd,command,n);
 	}
 	close(connfd);
 	exit(0);

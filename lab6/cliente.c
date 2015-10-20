@@ -9,7 +9,7 @@
 #include <string.h>
 #include <stdlib.h>
 #include <unistd.h>
-
+#include "netutils.h"
 #define MAXLINE 4096
 
 int main(int argc, char **argv) {
@@ -28,10 +28,7 @@ int main(int argc, char **argv) {
    int pnumber;
    sscanf(argv[2],"%d",&pnumber);
    /* Abre o socket */
-   if ( (sockfd = socket(AF_INET, SOCK_STREAM, 0)) < 0) {
-      perror("socket error");
-      exit(1);
-   }
+   sockfd = Socket(AF_INET, SOCK_STREAM, 0);
 
    /* Prepara as estruturas que serão usadas */
    bzero(&servaddr, sizeof(servaddr));
@@ -39,16 +36,10 @@ int main(int argc, char **argv) {
    servaddr.sin_port   = htons(pnumber);
 
    /* Aqui é criada a estrutura que será usada para a conexão */
-   if (inet_pton(AF_INET, argv[1], &servaddr.sin_addr) <= 0) {
-      perror("inet_pton error");
-      exit(1);
-   }
+   Inet_pton(AF_INET, argv[1], &servaddr.sin_addr);
 
    /* A conexão é feita */
-   if (connect(sockfd, (struct sockaddr *) &servaddr, sizeof(servaddr)) < 0) {
-      perror("connect error");
-      exit(1);
-   }
+   Connect(sockfd, (struct sockaddr *) &servaddr, sizeof(servaddr));
    printf("Connected to %s:%d\n",argv[1],pnumber);
 
    char command[1025];
@@ -59,9 +50,9 @@ int main(int argc, char **argv) {
        break;
      }
      /* Envia o comando */
-     write(sockfd,command,strlen(command));
+     Write(sockfd,command,strlen(command));
      /* Recebe a resposta */
-     n = read(sockfd, recvline, MAXLINE);
+     n = Read(sockfd, recvline, MAXLINE);
      if (n == 0) {
        break;
      }
