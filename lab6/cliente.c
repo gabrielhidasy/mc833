@@ -18,14 +18,15 @@ int main(int argc, char **argv) {
    char   error[MAXLINE + 1];
    struct sockaddr_in servaddr;
 
-   if (argc != 2) {
+   if (argc != 3){
       strcpy(error,"uso: ");
       strcat(error,argv[0]);
-      strcat(error," <IPaddress>");
+      strcat(error," <IPaddress> <Port Number>");
       perror(error);
       exit(1);
    }
-
+   int pnumber;
+   sscanf(argv[2],"%d",&pnumber);
    /* Abre o socket */
    if ( (sockfd = socket(AF_INET, SOCK_STREAM, 0)) < 0) {
       perror("socket error");
@@ -35,7 +36,7 @@ int main(int argc, char **argv) {
    /* Prepara as estruturas que serão usadas */
    bzero(&servaddr, sizeof(servaddr));
    servaddr.sin_family = AF_INET;
-   servaddr.sin_port   = htons(12344);
+   servaddr.sin_port   = htons(pnumber);
 
    /* Aqui é criada a estrutura que será usada para a conexão */
    if (inet_pton(AF_INET, argv[1], &servaddr.sin_addr) <= 0) {
@@ -48,24 +49,24 @@ int main(int argc, char **argv) {
       perror("connect error");
       exit(1);
    }
-   struct sockaddr_in sockname;
-   /* Seus dados são impressos na tela */
-   getsockname(sockfd, (struct sockaddr *) &sockname, (socklen_t *) sizeof(sockname));
-   printf("local IP is %s\n",inet_ntoa(sockname.sin_addr));
+   printf("Connected to %s:%d\n",argv[1],pnumber);
 
-   /* Dados são recebidos e impressos */
-   while ( (n = read(sockfd, recvline, MAXLINE)) > 0) {
-      recvline[n] = 0;
-      if (fputs(recvline, stdout) == EOF) {
-         perror("fputs error");
-         exit(1);
-      }
-   }
-
-   if (n < 0) {
-      perror("read error");
-      exit(1);
-   }
-   
+   char command[1025];
+   while (1) {
+     /* Le a linha de comando */
+     n = scanf(" %[^\n]",command);
+     if (n == 0) {
+       break;
+     }
+     /* Envia o comando */
+     write(sockfd,command,strlen(command));
+     /* Recebe a resposta */
+     n = read(sockfd, recvline, MAXLINE);
+     if (n == 0) {
+       break;
+     }
+     recvline[n] = 0;
+     printf("%s\n",recvline);
+     }
    exit(0);
 }

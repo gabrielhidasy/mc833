@@ -64,6 +64,7 @@ int main (int argc, char **argv) {
       /* E enviada */
       write(connfd, buf, strlen(buf));
       /* O socket dessa conexão é terminado e vamos para o proximo cliente */
+      system("sleep 10");
       close(connfd);
    }
    return(0);

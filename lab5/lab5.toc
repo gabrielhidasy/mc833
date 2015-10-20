@@ -1,0 +1,10 @@
+\contentsline {section}{\numberline {1}Quest\IeC {\~a}o 1:}{1}{section.1}
+\contentsline {subsection}{\numberline {1.1}cliente.c}{1}{subsection.1.1}
+\contentsline {subsection}{\numberline {1.2}servidor.c}{2}{subsection.1.2}
+\contentsline {section}{\numberline {2}Quest\IeC {\~a}o 2:}{3}{section.2}
+\contentsline {section}{\numberline {3}Quest\IeC {\~a}o 3}{3}{section.3}
+\contentsline {section}{\numberline {4}Quest\IeC {\~a}o 4}{3}{section.4}
+\contentsline {section}{\numberline {5}Quest\IeC {\~a}o 5}{4}{section.5}
+\contentsline {section}{\numberline {6}Quest\IeC {\~a}o 6}{4}{section.6}
+\contentsline {section}{\numberline {7}Quest\IeC {\~a}o 7:}{4}{section.7}
+\contentsline {section}{\numberline {8}Quest\IeC {\~a}o 8}{4}{section.8}

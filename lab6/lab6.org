@@ -1,6 +1,23 @@
-#+TITLE: Atividade 5 - Implementação de Aplicação Cliente/Servidor com Sockets TCP
+#+TITLE: Atividade 6 - Servidor TCP com
 * Questão 1:
+O servidor em questão nunca aceitou conexões concorrentes, mas dava a
+impressão de o fazer já que a tarefa executada por cliente era
+realizada muito rapido e a conexão encerrada em sequencia. 
 
+A mudança deixou o processamento por cliente mais lento, evidenciando
+o carater serial do servidor, quando dois clientes se conectam ao
+mesmo tempo o primeiro recebe a resposta enquanto o segundo espera o
+sleep terminar antes de receber dados.
+
+Ambas as conexões são bem sucedidas já que temos um buffer (de tamanho
+10, definido em =listen(sockfd,buffer_size)= para coneções ainda não
+aceitas.
+
+Mas fazendo um numero grande de conexões num curto intervalo de tempo
+começamos a ter falhas de conexão
+
+* Questão 2
+Utilizei os programas fornecidos como base:
 ** cliente.c
 
 As funções interessantes da parte de redes são:
