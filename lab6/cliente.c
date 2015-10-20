@@ -9,6 +9,7 @@
 #include <string.h>
 #include <stdlib.h>
 #include <unistd.h>
+#include <time.h>
 #include "netutils.h"
 #define MAXLINE 4096
 
@@ -17,6 +18,8 @@ int main(int argc, char **argv) {
    char   recvline[MAXLINE + 1];
    char   error[MAXLINE + 1];
    struct sockaddr_in servaddr;
+   time_t rawtime;
+   struct tm * timeinfo;
 
    if (argc != 3){
       strcpy(error,"uso: ");
@@ -40,13 +43,15 @@ int main(int argc, char **argv) {
 
    /* A conexão é feita */
    Connect(sockfd, (struct sockaddr *) &servaddr, sizeof(servaddr));
-   printf("Connected to %s:%d\n",argv[1],pnumber);
+   time(&rawtime);
+   timeinfo = localtime(&rawtime);
+   printf("%s: connected to %s:%d\n",asctime (timeinfo),argv[1],pnumber);
 
    char command[1025];
    while (1) {
      /* Le a linha de comando */
      n = scanf(" %[^\n]",command);
-     if (n == 0) {
+     if (n <= 0) {
        break;
      }
      if (!strcmp("Bye",command)) {
