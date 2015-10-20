@@ -32,7 +32,7 @@ int main (int argc, char **argv)
    servaddr.sin_port        = htons(pnumber);   
 
    /* A porta é reservada */
-   Bind(listenfd,servaddr);
+   Bind(listenfd,(struct sockaddr *) &servaddr, sizeof(servaddr));
 
    /* O servidor passa a receber conexões */
    Listen(listenfd,LISTENQ);

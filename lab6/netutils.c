@@ -8,10 +8,10 @@ int Socket(int family, int type, int flags)
   } else
     return sockfd;
 }
-void Bind(int sockfd, struct sockaddr_in servaddr)
+void Bind(int sockfd, struct sockaddr *servaddr, int size)
 {
-  if (bind(sockfd, (struct sockaddr *)
-	   &servaddr, sizeof(servaddr)) == -1) {
+  if (bind(sockfd,
+	   servaddr, size) == -1) {
     perror("bind");
     exit(1);
   }
@@ -57,9 +57,9 @@ void Connect(int sockfd, struct sockaddr *servaddr, int size)
       exit(1);
    }
 }
-void Inet_pton(int type, char *in, struct sockaddr_in servaddr)
+void Inet_pton(int family, char *in, struct in_addr *servaddr)
 {
-  if (inet_pton(type, in, &servaddr.sin_addr) <= 0) {
+  if (inet_pton(family, in, servaddr) <= 0) {
     perror("inet_pton error");
     exit(1);
   }
