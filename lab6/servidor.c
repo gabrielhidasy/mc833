@@ -14,13 +14,29 @@
 #define LISTENQ 10
 #define MAXDATASIZE 4096
 
+void deal_with_client(int connfd)
+{
+  char command[MAXDATASIZE];
+  int n;
+  while(1) {
+    n = Read(connfd,command,MAXDATASIZE-1);
+    if (n == 0) {
+      break;
+    }
+    command[n] = 0;
+    //Thats a security flaw, try to chroot this server
+    system(command);
+    Write(connfd,command,n);
+  }
+}
+
 int main (int argc, char **argv)
 {
   int    listenfd, connfd;
   struct sockaddr_in servaddr;
-   int pnumber = 12344;
-   if (argc == 2) {
-     sscanf(argv[1],"%d",&pnumber);
+  int pnumber = 12344;
+  if (argc == 2) {
+    sscanf(argv[1],"%d",&pnumber);
    }
    /* No trecho abaixo um socket é inicializado */
    listenfd = Socket(AF_INET, SOCK_STREAM, 0);
@@ -39,8 +55,7 @@ int main (int argc, char **argv)
 
    for ( ; ; ) {
      struct sockaddr_in client;
-     connfd = Accept(listenfd,&client);
-     
+     connfd = Accept(listenfd,&client);     
      char client_address[128];
      int client_port = ntohs(client.sin_port);
      inet_ntop(AF_INET,&client.sin_addr.s_addr,client_address,128);
@@ -48,19 +63,7 @@ int main (int argc, char **argv)
 
       int chid = fork();
       if (chid == 0) {
-	
-	char command[MAXDATASIZE];
-	int n;
-	while(1) {
-	  n = Read(connfd,command,MAXDATASIZE-1);
-	  if (n == 0) {
-	    break;
-	  }
-	  command[n] = 0;
-	  //Thats a security flaw, try to chroot this server
-	  system(command);
-	  Write(connfd,command,n);
-	}
+	deal_with_client(connfd);
 	close(connfd);
 	exit(0);
       } else {

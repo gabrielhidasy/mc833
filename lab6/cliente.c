@@ -49,6 +49,9 @@ int main(int argc, char **argv) {
      if (n == 0) {
        break;
      }
+     if (!strcmp("Bye",command)) {
+       break;
+     }
      /* Envia o comando */
      Write(sockfd,command,strlen(command));
      /* Recebe a resposta */
@@ -58,6 +61,7 @@ int main(int argc, char **argv) {
      }
      recvline[n] = 0;
      printf("%s\n",recvline);
-     }
+   }
+   close(sockfd);
    exit(0);
 }
