@@ -16,6 +16,9 @@
 #define LISTENQ 10
 #define MAXDATASIZE 4096
 
+FILE *logfd;
+int listenfd;
+
 struct client {
   int port;
   pid_t pid;
@@ -28,10 +31,20 @@ struct client_list {
 };
   
 struct client_list *clist = NULL;
-FILE *logfd;
+
+void timestamp(char *t)
+{
+  time_t rawtime;
+  struct tm *timeinfo;
+  time(&rawtime);
+  timeinfo = localtime(&rawtime);
+  strcpy(t,asctime(timeinfo));
+  t[24] = 0; //TODO, ensure \n is always at 24 or find it
+}
 
 void add_client(pid_t pid, char *address, int port)
 {
+  printf("Adding PID %d\n",pid);
   if(clist == NULL) {
     clist = malloc(sizeof(struct client_list));
     clist->next = NULL;
@@ -46,79 +59,110 @@ void add_client(pid_t pid, char *address, int port)
   }
   clist = malloc(sizeof(struct client_list));
   prev->next = clist;
-  clist->next == NULL;
+  clist->next = NULL;
   clist->c.port = port;
   strcpy(clist->c.address,address);
   clist->c.pid = pid;
   clist = head;
 }
 
-void remove_client(pid_t r, struct client *c)
+int remove_client(pid_t r, struct client *c)
 {
+  if (r == -1) {
+    return 0;
+  }
+  printf("Removing PID %d\n",r);
   struct client_list *curr = clist->next;
   struct client_list *prev = clist;
-  printf("%d %d\n",prev,r);
   while (curr->c.pid != r) {
     curr = curr->next;
     prev = prev->next;
+    if (curr == NULL)
+      return 0;
     }
   c->port = curr->c.port;
   c->pid = curr->c.pid;
   strcpy(c->address,curr->c.address);
   prev->next = curr->next;
   free(curr);
+  return 1;
 }
     
 
 void deal_with_client(int connfd, char *address, int port)
 {
-  time_t rawtime;
-  struct tm * timeinfo;
-  time(&rawtime);
-  timeinfo = localtime(&rawtime);
-  printf("%s: connected %s:%d\n",asctime (timeinfo),address,port);
+  signal(SIGCHLD,SIG_DFL);
+  char time_now[25];
+  timestamp(time_now);
+  printf("%s: connected %s:%d\n",time_now,address,port);
   char command[MAXDATASIZE];
   int n;
   while(1) {
+    int i;
+    for(i = 0; i < MAXDATASIZE; i++) {
+      command[i] = 0;
+    }
     n = Read(connfd,command,MAXDATASIZE-1);
     if (n == 0) {
       break;
     }
-    printf("%d\n",n);
     command[n] = 0;
     printf("%s:%d > %s\n",address,port,command);
-    //Thats a security flaw, try to chroot this server
-    //system(command);
-    Write(connfd,command,n);
+    
+
+    char output[MAXDATASIZE];
+    FILE *process_output;
+    //TODO - Wrap it
+    process_output = popen(command,"r");
+    n = fread(output,1,MAXDATASIZE,process_output);
+    pclose(process_output);
+    //while(1) {
+      
+    //if (n == 0) {
+    // break;
+    //}
+    //strcpy(output,command);
+    Write(connfd,output,n);
+    //}
+    
   }
-  time(&rawtime);
-  timeinfo = localtime(&rawtime);
-  printf("%s: disconnected %s:%d\n",asctime (timeinfo),address,port);
+  timestamp(time_now);
+  printf("%s: disconnected %s:%d\n",time_now,address,port);
   close(connfd);
   exit(0);
 }
 
-void sighandler(int signal)
+void chdhandler(int signal)
 {
   pid_t pid;
   pid = wait(NULL);
   struct client c;
-  remove_client(pid,&c);
-  time_t rawtime;
-  struct tm *timeinfo;
-  time(&rawtime);
-  timeinfo = localtime(&rawtime);
-  char localtime[25];
-  strcpy(localtime,asctime(timeinfo));
-  localtime[24] = 0; //TODO, ensure \n is always at 24 or find it
-  fprintf(logfd,"%s: connected %s:%d\n",
-	  localtime,c.address,c.port);
+  if(remove_client(pid,&c)) {
+    char localtime[25];
+    timestamp(localtime);
+    fprintf(logfd,"%s: disconnected %s:%d\n",
+	    localtime,c.address,c.port);
+  }
+}
+
+void inthandler(int signal)
+{
+  struct client_list *next = clist;
+  while (next != NULL) {
+    next = clist->next;
+    free(clist);
+    clist = next;
+  }
+  fclose(logfd);
+  close(listenfd);
+  exit(0);
 }
 
 int main (int argc, char **argv)
 {
-  signal(SIGCHLD,sighandler);
-  int    listenfd, connfd;
+  signal(SIGCHLD,chdhandler);
+  signal(SIGINT,inthandler);
+  int connfd;
   struct sockaddr_in servaddr;
   int pnumber = 12344;
 
@@ -153,13 +197,8 @@ int main (int argc, char **argv)
     if (chid == 0) {
       deal_with_client(connfd,client_address,client_port);
     } else {
-      time_t rawtime;
-      struct tm * timeinfo;
-      time(&rawtime);
-      timeinfo = localtime(&rawtime);
       char localtime[25];
-      strcpy(localtime,asctime(timeinfo));
-      localtime[24] = 0; //TODO, ensure \n is always at 24 or find it
+      timestamp(localtime);
       fprintf(logfd,"%s: connected %s:%d\n",
 	      localtime,client_address,client_port);
       add_client(chid,client_address,client_port);

@@ -48,6 +48,7 @@ void Write(int connfd, char *command, int n)
 {
   if(write(connfd, command, n) < 0) {
     perror("write");
+    exit(1);
   }
 }
 void Connect(int sockfd, struct sockaddr *servaddr, int size)

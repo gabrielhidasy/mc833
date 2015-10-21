@@ -19,3 +19,47 @@
 * Questão 2
   Utilizei os programas fornecidos como base, eles seguem anexos em
   outro pdf
+* Questão 3
+  Ainda utilizando os mesmos como base, seguem anexos em pfg
+* Questão 4
+  Porque o no trecho apresentado o processo pai (que roda o Accept)
+  fecha o socket usado para se comunicar com o cliente, mas o filho
+  permanece com ele aberto até terminar sua operação (uma escolha
+  sensivel dado que o filho trata da conexão do cliente). Da mesma
+  forma o filho fecha o socket de listen (que ele não vai usar), mas o
+  pai permance com ele aberto, afinal ele trata de receber mais
+  clientes.
+* Questão 5
+  Após executar o servidor iniciei 3 conexões, a saida de pstree o
+  seguinte trecho:
+  #+begin_src text
+  ├─xfce4-terminal─┬─zsh─┬─pstree
+                         └─servidor───3*[servidor]
+  #+end_src text
+  O que claramente indica que o servidor que eu rodei no meu terminal
+  tem 3 filhos que são instancias dele mesmo, como esperado pelos
+  multiplos fork
+  
+  O mesmo pode ser visto na saida do =ps all=
+  #+begin_src text
+  0   UID   PID  PPID PRI  NI    VSZ   RSS WCHAN  STAT TTY        TIME COMMAND
+  0  1000 17074 16267  25   5   4192  1412 inet_c SN   pts/0      0:00 ./servidor
+  0  1000 17118 16267  20   0   4192  1388 signal T    pts/0      0:00 ./cliente 12
+  1  1000 17119 17074  25   5   4188  1024 sk_wai SN   pts/0      0:00 ./servidor
+  0  1000 17229 16267  25   5   4192  1292 signal TN   pts/0      0:00 ./cliente 12
+  1  1000 17230 17074  25   5   4192    84 sk_wai SN   pts/0      0:00 ./servidor
+  0  1000 17676 16267  25   5   4192  1464 signal TN   pts/0      0:00 ./cliente 12
+  1  1000 17677 17074  25   5   4192    84 sk_wai SN   pts/0      0:00 ./servidor
+  #+end_src text
+
+  Onde claramente temos  3 uma instancia do servidor rodando para cada
+  cliente, alám de uma adicional que é a que roda Accept, as 3 ultimas
+  instancias de servidor tem o mesmo PPID (parent PID), que é igual ao
+  PID da instancia principal do servidor (17074)
+* Questão 6
+  Como era de se esperar pela implementação, em situações normais (o
+  servidor permanece e o cliente deixa a sessão (seja com Bye ou com
+  um =SIGINT=), o cliente fica com o estado =TIME_WAIT= (testei com
+  netstat -a -p). Em geral a maquina que inicia o processo de
+  desconexão (=close(fd)=) termina nesse estado.
+ 

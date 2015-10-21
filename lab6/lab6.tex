@@ -1,0 +1,107 @@
+% Created 2015-10-21 Wed 00:06
+\documentclass[11pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{fixltx2e}
+\usepackage{graphicx}
+\usepackage{longtable}
+\usepackage{float}
+\usepackage{wrapfig}
+\usepackage{rotating}
+\usepackage[normalem]{ulem}
+\usepackage{amsmath}
+\usepackage{textcomp}
+\usepackage{marvosym}
+\usepackage{wasysym}
+\usepackage{amssymb}
+\usepackage{hyperref}
+\tolerance=1000
+\author{Gabriel Hidasy Rezende}
+\date{\today}
+\title{Atividade 6 - Servidor TCP com}
+\hypersetup{
+  pdfkeywords={},
+  pdfsubject={},
+  pdfcreator={Emacs 24.5.1 (Org mode 8.2.10)}}
+\begin{document}
+
+\maketitle
+
+
+\section{Questão 1:}
+\label{sec-1}
+O servidor em questão nunca aceitou conexões concorrentes, mas dava a
+impressão de o fazer já que a tarefa executada por cliente era
+realizada muito rapido e a conexão encerrada em sequencia. 
+
+A mudança deixou o processamento por cliente mais lento, evidenciando
+o carater serial do servidor, quando dois clientes se conectam ao
+mesmo tempo o primeiro recebe a resposta enquanto o segundo espera o
+sleep terminar antes de receber dados.
+
+Ambas as conexões são bem sucedidas já que temos um buffer (de tamanho
+10, definido em \texttt{listen(sockfd,buffer\_size)} para coneções ainda não
+aceitas.
+
+Mas fazendo um numero grande de conexões num curto intervalo de tempo
+começamos a ter falhas de conexão
+
+\section{Questão 2}
+\label{sec-2}
+Utilizei os programas fornecidos como base, eles seguem anexos em
+outro pdf
+\section{Questão 3}
+\label{sec-3}
+Ainda utilizando os mesmos como base, seguem anexos em pfg
+\section{Questão 4}
+\label{sec-4}
+Porque o no trecho apresentado o processo pai (que roda o Accept)
+fecha o socket usado para se comunicar com o cliente, mas o filho
+permanece com ele aberto até terminar sua operação (uma escolha
+sensivel dado que o filho trata da conexão do cliente). Da mesma
+forma o filho fecha o socket de listen (que ele não vai usar), mas o
+pai permance com ele aberto, afinal ele trata de receber mais
+clientes.
+\section{Questão 5}
+\label{sec-5}
+Após executar o servidor iniciei 3 conexões, a saida de pstree -A o
+seguinte trecho:
+\begin{verbatim}
+|-xfce4-terminal-+-zsh---pstree
+                 |-zsh-+-3*[cliente]
+                       |-servidor---3*[servidor]
+
+\end{verbatim}
+
+O que claramente indica que o servidor que eu rodei no meu terminal
+tem 3 filhos que são instancias dele mesmo, como esperado pelos
+multiplos fork
+
+O mesmo pode ser visto na saida do \texttt{ps o pid,ppid,command}
+\begin{verbatim}
+PID    PPID COMMAND
+16267  3765 zsh
+17074 16267 ./servidor
+17118 16267 ./cliente 127.0.0.1 12344
+17119 17074 ./servidor
+17229 16267 ./cliente 127.0.0.1 12344
+17230 17074 ./servidor
+17676 16267 ./cliente 127.0.0.1 12344
+17677 17074 ./servidor
+20224 14169 ps o pid,ppid,command
+\end{verbatim}
+
+
+Onde claramente temos  3 uma instancia do servidor rodando para cada
+cliente, alám de uma adicional que é a que roda Accept, as 3 ultimas
+instancias de servidor tem o mesmo PPID (parent PID), que é igual ao
+PID da instancia principal do servidor (17074)
+\section{Questão 6}
+\label{sec-6}
+Como era de se esperar pela implementação, em situações normais (o
+servidor permanece e o cliente deixa a sessão (seja com Bye ou com
+um \texttt{SIGINT}), o cliente fica com o estado \texttt{TIME\_WAIT} (testei com
+netstat -a -p). Em geral a maquina que inicia o processo de
+desconexão (\texttt{close(fd)}) termina nesse estado.
+% Emacs 24.5.1 (Org mode 8.2.10)
+\end{document}
