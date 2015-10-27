@@ -1,0 +1,22 @@
+#+TITLE: Atividade 7 - Estudo do backlog e tratamento de processos zumbis
+* Questão 1
+O parametro passado para listen indica o tamanho da fila de conexões
+em espera que o sistema deve manter entre o momento em que elas são
+feitas (pelo cliente) e o momento em que o processo responsavel por
+aquela porta aceita as mesmas (com =accept=)
+
+O parametro não precisa ser seguido a risca pela implementação, mas
+deve aceitar no minimo o valor da variavel =SOMAXCONN= de
+=sys/socket.h= (valores maiores podem ser silenciosamente reduzidos)
+
+A implementação pode incluir conexões incompletas no backlog, e os
+limites para conexões completas e incompletas podem ser diferentes.
+
+Além disso a implementação é livre para definir um limite global ou
+por socket.
+
+No meu sistema (arch linux com kernel 4.2.3-1 o valor parece ser
+ignorado, mesmo usando o valor 0 o sistema aceita centenas de clientes
+sem necessidade de accept.
+
+TODO Ver no fedora

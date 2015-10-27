@@ -1,8 +1,8 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Arch Linux) (preloaded format=pdflatex 2015.9.15)  4 OCT 2015 21:54
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Arch Linux) (preloaded format=pdflatex 2015.9.15)  26 OCT 2015 21:25
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
-**/home/gabriel/Unicamp/mc833/lab5/lab5-codigos.tex
+** /home/gabriel/Unicamp/mc833/lab5/lab5-codigos.tex
 (/home/gabriel/Unicamp/mc833/lab5/lab5-codigos.tex
 LaTeX2e <2015/01/01>
 Babel <3.9l> and hyphenation patterns for 79 languages loaded.
@@ -845,13 +845,13 @@ Here is how much of TeX's memory you used:
  12891 multiletter control sequences out of 15000+600000
  12709 words of font info for 42 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 29i,6n,49p,279b,1890s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 29i,6n,49p,280b,1890s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/usr/share/texmf-dist/fonts/enc/dvips/cm-super/cm-super-t1.enc}</usr/share/t
 exmf-dist/fonts/type1/public/cm-super/sfrm1095.pfb></usr/share/texmf-dist/fonts
 /type1/public/cm-super/sfrm1200.pfb></usr/share/texmf-dist/fonts/type1/public/c
 m-super/sfrm1728.pfb></usr/share/texmf-dist/fonts/type1/public/cm-super/sftt100
 0.pfb>
-Output written on lab5-codigos.pdf (4 pages, 86206 bytes).
+Output written on lab5-codigos.pdf (4 pages, 86267 bytes).
 PDF statistics:
  219 PDF objects out of 1000 (max. 8388607)
  206 compressed objects within 3 object streams

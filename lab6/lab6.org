@@ -63,3 +63,4 @@
   netstat -a -p). Em geral a maquina que inicia o processo de
   desconexão (=close(fd)=) termina nesse estado.
  
+  
