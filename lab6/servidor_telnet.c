@@ -88,10 +88,16 @@ int remove_client(pid_t r, struct client *c)
   return 1;
 }
     
+void deal_with_client_chdhandler(int signal)
+{
+  pid_t pid;
+  pid = wait(NULL);
+  printf("Child %d is dead\n",signal);
+}
 
 void deal_with_client(int connfd, char *address, int port)
 {
-  signal(SIGCHLD,SIG_DFL);
+  signal(SIGCHLD,deal_with_client_chdhandler);
   char time_now[25];
   timestamp(time_now);
   printf("%s: connected %s:%d\n",time_now,address,port);
@@ -116,6 +122,10 @@ void deal_with_client(int connfd, char *address, int port)
     process_output = popen(command,"r");
     n = fread(output,1,MAXDATASIZE,process_output);
     pclose(process_output);
+    if (n == 0) {
+      Write(connfd,"\n",2);
+      continue;
+    }
     //while(1) {
       
     //if (n == 0) {

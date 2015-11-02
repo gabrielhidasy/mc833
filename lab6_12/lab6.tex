@@ -1,0 +1,61 @@
+% Created 2015-10-21 Wed 00:06
+\documentclass[11pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{fixltx2e}
+\usepackage{graphicx}
+\usepackage{longtable}
+\usepackage{float}
+\usepackage{wrapfig}
+\usepackage{rotating}
+\usepackage[normalem]{ulem}
+\usepackage{amsmath}
+\usepackage{textcomp}
+\usepackage{marvosym}
+\usepackage{wasysym}
+\usepackage{amssymb}
+\usepackage{hyperref}
+\tolerance=1000
+\author{Gabriel Hidasy Rezende}
+\date{\today}
+\title{Atividade 6 - Servidor TCP com}
+\hypersetup{
+  pdfkeywords={},
+  pdfsubject={},
+  pdfcreator={Emacs 24.5.1 (Org mode 8.2.10)}}
+\begin{document}
+
+\maketitle
+
+
+\section{Questão 1:}
+\label{sec-1}
+O servidor em questão nunca aceitou conexões concorrentes, mas dava a
+impressão de o fazer já que a tarefa executada por cliente era
+realizada muito rapido e a conexão encerrada em sequencia. 
+
+A mudança deixou o processamento por cliente mais lento, evidenciando
+o carater serial do servidor, quando dois clientes se conectam ao
+mesmo tempo o primeiro recebe a resposta enquanto o segundo espera o
+sleep terminar antes de receber dados.
+
+Ambas as conexões são bem sucedidas já que temos um buffer (de tamanho
+10, definido em \texttt{listen(sockfd,buffer\_size)} para coneções ainda não
+aceitas.
+
+Mas fazendo um numero grande de conexões num curto intervalo de tempo
+começamos a ter falhas de conexão
+
+\section{Questão 2}
+\label{sec-2}
+Utilizei os programas fornecidos como base, eles seguem anexos em outro pdf.
+
+Os programas foram testados com uma variedade de comandos diferentes e
+deram bons resultados com comandos simples, mas não para comandos
+interativos (como top, mutt ou emacs -nx) pois esse não era o objetivo
+dessa implementação.
+
+Usei o tcpdump para checar a comunicação entre o cliente e o servidor
+e é possivel ver os comandos passando do cliente para o servidor e de
+volta a cada comando enviado.
+\end{document}

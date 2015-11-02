@@ -1,0 +1,6 @@
+\contentsline {section}{\numberline {1}Quest\IeC {\~a}o 1:}{1}{section.1}
+\contentsline {section}{\numberline {2}Quest\IeC {\~a}o 2}{1}{section.2}
+\contentsline {section}{\numberline {3}Quest\IeC {\~a}o 3}{1}{section.3}
+\contentsline {section}{\numberline {4}Quest\IeC {\~a}o 4}{2}{section.4}
+\contentsline {section}{\numberline {5}Quest\IeC {\~a}o 5}{2}{section.5}
+\contentsline {section}{\numberline {6}Quest\IeC {\~a}o 6}{2}{section.6}
