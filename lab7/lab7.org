@@ -1,22 +1,65 @@
-#+TITLE: Atividade 7 - Estudo do backlog e tratamento de processos zumbis
+##+TITLE: Atividade 7 - Estudo do backlog e tratamento de processos zumbis
+
 * Questão 1
-O parametro passado para listen indica o tamanho da fila de conexões
-em espera que o sistema deve manter entre o momento em que elas são
-feitas (pelo cliente) e o momento em que o processo responsavel por
-aquela porta aceita as mesmas (com =accept=)
+No linux, desde o kernel 2.2 o parametro backlog é usado como uma indicação (que
+não precisa ser seguida a risca) para o tamanho da file de conexões
+completamente estabelecidas (SYN-SYN/ACK-ACK) e aguardando o uso de =accept=, e
+o número maximo de conexões em espera (para o qual o sistema ainda não envou o
+pacote SYN/ACK) é definido no parametro do kernel =tcp_max_syn_backlog=,
+acessivel atráves da /proc (=/proc/sys/net/ipv4/tcp_max_syn_backlog=).
 
-O parametro não precisa ser seguido a risca pela implementação, mas
-deve aceitar no minimo o valor da variavel =SOMAXCONN= de
-=sys/socket.h= (valores maiores podem ser silenciosamente reduzidos)
+Essa maneira de interpretar o parametro backlog é fundalmentalmente diferente de
+sistemas como o BSD, onde o parametro é usado como limite para a soma das
+conexões estabelecidas e em espera.
 
-A implementação pode incluir conexões incompletas no backlog, e os
-limites para conexões completas e incompletas podem ser diferentes.
+Teoricamente isso significaria que, no linux, após o a conexão ser estabelecida,
+o sistema  colocaria imediatamente a conexão na segunda lista (que é local por
+aplicação), e se a mesma estivesse cheia derrubaria a conexão (enviando um RST),
+o que ele de fato faz se o parametro =tcp_abort_on_overflow= estiver com valor 1.
 
-Além disso a implementação é livre para definir um limite global ou
-por socket.
+Mas esse parametro por default tem valor 0, e a implementação nesse caso ignora
+o pacote ACK, o que faz a parte do sistema que trata da conexão em mais baixo
+nivel considere que o pacote se perdeu, e reenvie o SYN/ACK (até no maximo
+=tcp_synack_retries= vezes usando exponencial backoff).
 
-No meu sistema (arch linux com kernel 4.2.3-1 o valor parece ser
-ignorado, mesmo usando o valor 0 o sistema aceita centenas de clientes
-sem necessidade de accept.
+O TCP do lado do cliente por outro lado ao ver multiplos SYN/ACK interpreta o
+resultado como multiplas perdas do seu ACK, e continua a reenviar o mesmo.
 
-TODO Ver no fedora
+Isso e o fato do parametro backlog ser usado como indicação (e aparentemente
+ignorado em prol de um valor significativamente maior) atrapalha bastante a
+realização da questão 3, pois é necessario preencher totalmente a fila de
+backlog e esperar o tempo do processo de exponencial backoff até que se exceda o
+numero de retries permitidos (5), o que pode demorar mais de 100 segundos
+
+* Questão 2
+Códigos anexos
+
+* Questão 3
+O valor que passo como parametro para o tamanho do backlog não aparenta ser
+utilizado para valores pequenos, utilizando =netstat -a= verifiquei que o
+sistema sempre aceita no minimo 32 conexões (que ficam com estado =ESTABLISHED=
+antes de começar a deixar conexões em =SYN_RECV=, e nenhuma conexão é derrubada
+por mais de 100s. 
+
+Curiosamente após setar o parametro =tcp_abort_on_overflow= para 1 não apenas a
+as conexões pararam de ser interompidas quando o backlog é preenchido, como o
+valor passado como parametro passa a ser respeitado.
+
+* Questão 4
+Ao executar o sniffer é possivel ver claramente o three way handshake
+acontecendo em dois tipo de conexão, as que acontecem antes do backlog ser
+preenchido e tem a sequencia de flags (S, S., .) (S -> SYN, . -> ACK), e depois
+do backlog encher temos (S,S.,.,R), ou seja, o sistema aceita a conexão e
+imediatamente envia um RESET para encerrar a mesma.
+
+* Questão 5 
+Basta tratar o sinal SIGCHD, seja capturando o mesmo e chamando =wait()= ou da
+seguinte forma:
+
+#+BEGIN_SRC C
+struct sigaction sigchld_action = {
+  .sa_handler = SIG_DFL,
+  .sa_flags = SA_NOCLDWAIT
+};
+sigaction(SIGCHLD, &sigchld_action, NULL);
+#+END_SRC

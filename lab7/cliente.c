@@ -35,7 +35,7 @@ int main(int argc, char **argv) {
    /* Prepara as estruturas que serão usadas */
    bzero(&servaddr, sizeof(servaddr));
    servaddr.sin_family = AF_INET;
-   servaddr.sin_port   = htons(12345);
+   servaddr.sin_port   = htons(12344);
 
    /* Aqui é criada a estrutura que será usada para a conexão */
    if (inet_pton(AF_INET, argv[1], &servaddr.sin_addr) <= 0) {

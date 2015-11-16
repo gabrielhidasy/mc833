@@ -1,0 +1,97 @@
+% Created 2015-11-10 Tue 00:26
+\documentclass[11pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{fixltx2e}
+\usepackage{graphicx}
+\usepackage{grffile}
+\usepackage{longtable}
+\usepackage{wrapfig}
+\usepackage{rotating}
+\usepackage[normalem]{ulem}
+\usepackage{amsmath}
+\usepackage{textcomp}
+\usepackage{amssymb}
+\usepackage{capt-of}
+\usepackage{hyperref}
+\author{Gabriel Hidasy Rezende}
+\date{\today}
+\title{Atividade 7 - Estudo do backlog e tratamento de processos zumbis}
+\hypersetup{
+ pdfauthor={Gabriel Hidasy Rezende},
+ pdftitle={},
+ pdfkeywords={},
+ pdfsubject={},
+ pdfcreator={Emacs 24.5.1 (Org mode 8.3.2)}, 
+ pdflang={English}}
+\begin{document}
+\maketitle
+\section{Questão 1}
+\label{sec:orgheadline1}
+No linux, desde o kernel 2.2 o parâmetro backlog é usado como uma indicação (que
+não precisa ser seguida a risca) para o tamanho da file de conexões
+completamente estabelecidas (SYN-SYN/ACK-ACK) e aguardando o uso de \texttt{accept}, e
+o número máximo de conexões em espera (para o qual o sistema ainda não enviou o
+pacote SYN/ACK) é definido no parâmetro do kernel \texttt{tcp\_max\_syn\_backlog},
+acessível através da /proc \\(\texttt{/proc/sys/net/ipv4/tcp\_max\_syn\_backlog}).
+
+Essa maneira de interpretar o parâmetro backlog é fundamentalmente diferente de
+sistemas como o BSD, onde o parâmetro é usado como limite para a soma das
+conexões estabelecidas e em espera.
+
+Teoricamente isso significaria que, no linux, após o a conexão ser estabelecida,
+o sistema  colocaria imediatamente a conexão na segunda lista (que é local por
+aplicação), e se a mesma estivesse cheia derrubaria a conexão (enviando um RST),
+o que ele de fato faz se o parâmetro \texttt{tcp\_abort\_on\_overflow} estiver com valor 1.
+
+Mas esse parâmetro por default tem valor 0, e a implementação nesse caso ignora
+o pacote ACK, o que faz a parte do sistema que trata da conexão em mais baixo
+nível considere que o pacote se perdeu, e reenvie o SYN/ACK (até no máximo
+\texttt{tcp\_synack\_retries} vezes usando exponencial backoff).
+
+O TCP do lado do cliente por outro lado ao ver múltiplos SYN/ACK interpreta o
+resultado como múltiplas perdas do seu ACK, e continua a reenviar o mesmo.
+
+Isso e o fato do parâmetro backlog ser usado como indicação (e aparentemente
+ignorado em prol de um valor significativamente maior) atrapalha bastante a
+realização da questão 3, pois é necessário preencher totalmente a fila de
+backlog e esperar o tempo do processo de exponencial backoff até que se exceda o
+numero de retries permitidos (5), o que pode demorar mais de 100 segundos
+
+\section{Questão 2}
+\label{sec:orgheadline2}
+Códigos anexos
+
+\section{Questão 3}
+\label{sec:orgheadline3}
+O valor que passo como parâmetro para o tamanho do backlog não aparenta ser
+utilizado para valores pequenos, utilizando \texttt{netstat -a} verifiquei que o
+sistema sempre aceita no minimo 32 conexões (que ficam com estado \texttt{ESTABLISHED}
+antes de começar a deixar conexões em \texttt{SYN\_RECV}, e nenhuma conexão é derrubada
+por mais de 100s. 
+
+Curiosamente após setar o parâmetro \texttt{tcp\_abort\_on\_overflow} para 1 não apenas a
+as conexões pararam de ser interrompidas quando o backlog é preenchido, como o
+valor passado como parâmetro passa a ser respeitado.
+
+\section{Questão 4}
+\label{sec:orgheadline4}
+Ao executar o sniffer é possível ver claramente o three way handshake
+acontecendo em dois tipo de conexão, as que acontecem antes do backlog ser
+preenchido e tem a sequencia de flags (S, S., .) (S -> SYN, . -> ACK), e depois
+do backlog encher temos (S,S.,.,R), ou seja, o sistema aceita a conexão e
+imediatamente envia um RESET para encerrar a mesma.
+
+\section{Questão 5}
+\label{sec:orgheadline5}
+Basta tratar o sinal SIGCHD, seja capturando o mesmo e chamando \texttt{wait()} ou da
+seguinte forma:
+
+\begin{verbatim}
+struct sigaction sigchld_action = {
+  .sa_handler = SIG_DFL,
+  .sa_flags = SA_NOCLDWAIT
+};
+sigaction(SIGCHLD, &sigchld_action, NULL);
+\end{verbatim}
+\end{document}
