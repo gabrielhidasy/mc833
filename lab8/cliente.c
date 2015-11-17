@@ -69,6 +69,7 @@ int main(int argc, char **argv) {
        blocks++;
        //fprintf(stderr, "Read a line, blocks = %d\n",blocks);
      }
+     
      /*Create fd sets */
      fd_set readfds, writefds;
      FD_ZERO(&readfds);
